@@ -127,9 +127,9 @@ function startTypingAnimation() {
                 const inshallahSoFar = inshallahWord.substring(0, inshallahIndex + 1);
                 const afterInshallah = fullText.substring(currentIndex + inshallahWord.length);
                 
-                // Build the HTML with italicized Inshallah as it's being typed
+                // Build the HTML with italicized and bold Inshallah as it's being typed
                 const formattedBefore = beforeInshallah.replace(/\n/g, '<br>');
-                typingElement.innerHTML = formattedBefore + '<em>' + inshallahSoFar + '</em><span class="cursor">|</span>';
+                typingElement.innerHTML = formattedBefore + '<em><strong>' + inshallahSoFar + '</strong></em><span class="cursor">|</span>';
                 
                 inshallahIndex++;
                 currentIndex++;
@@ -137,7 +137,7 @@ function startTypingAnimation() {
             } else {
                 // Animation complete after Inshallah - remove inline cursor
                 const formattedBefore = beforeInshallah.replace(/\n/g, '<br>');
-                typingElement.innerHTML = formattedBefore + '<em>' + inshallahWord + '</em>';
+                typingElement.innerHTML = formattedBefore + '<em><strong>' + inshallahWord + '</strong></em>';
                 isTyping = false;
                 
                 setTimeout(() => {
@@ -178,7 +178,7 @@ function skipIntro() {
         
         // Handle "Inshallah" formatting
         if (segment.text.includes('Inshallah')) {
-            segmentElement.innerHTML = segment.text.replace('Inshallah', '<em>Inshallah</em>');
+            segmentElement.innerHTML = segment.text.replace('Inshallah', '<em><strong>Inshallah</strong></em>');
         } else {
             segmentElement.textContent = segment.text;
         }
