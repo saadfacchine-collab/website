@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+// Use global fetch (available in Netlify Functions)
 
 exports.handler = async (event, context) => {
   // Only handle POST requests

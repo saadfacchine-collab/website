@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test ConvertKit Function</title>
+</head>
+<body>
+    <h1>Test ConvertKit Integration</h1>
+    
+    <form id="test-form">
+        <input type="email" id="test-email" placeholder="Enter test email" required>
+        <button type="submit">Test Signup</button>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+        document.getElementById('test-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('test-email').value;
+            const resultDiv = document.getElementById('result');
+            
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const response = await fetch('/.netlify/functions/convertkit-webhook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'form-name': 'newsletter',
+                        email: email
+                    })
+                });
+                
+                const result = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3>Response:</h3>
+                    <p>Status: ${response.status}</p>
+                    <p>Result: ${JSON.stringify(result, null, 2)}</p>
+                `;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3>Error:</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
