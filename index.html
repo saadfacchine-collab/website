@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saad Facchine - The Great American Caliphate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header with navigation -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1>Saad Facchine</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active" data-tab="home">Home</a>
+                <a href="#bio" class="nav-link" data-tab="bio">Bio</a>
+                <a href="#blog" class="nav-link" data-tab="blog">Blog</a>
+                <a href="#contact" class="nav-link" data-tab="contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content container -->
+    <main class="main-content">
+        <!-- Home section with typing animation -->
+        <section id="home" class="tab-content active">
+            <div class="hero-section">
+                <!-- Cold open - just the typing animation -->
+                <div class="typing-container">
+                    <div class="typing-text" id="typing-text"></div>
+                    <span class="cursor" id="cursor">|</span>
+                </div>
+                
+                <!-- Content that appears after typing is complete -->
+                <div class="post-typing-content" id="post-typing-content" style="display: none;">
+                    <!-- Prominent Newsletter Section -->
+                    <div class="prominent-newsletter">
+                        <h2><em>THE GREAT AMERICAN CALIPHATE</em></h2>
+                        <p class="author-name">by Saad Facchine</p>
+                        <p class="newsletter-description">Get updates on my debut novel's journey to publication</p>
+                        <iframe src="https://sfacchine.substack.com/embed" width="100%" height="150" style="border:0; background:transparent;" frameborder="0" scrolling="no"></iframe>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="nav-buttons">
+                        <button class="nav-button" data-tab="bio">
+                            <span class="nav-button-title">Bio</span>
+                            <span class="nav-button-desc">About the Author</span>
+                        </button>
+                        <button class="nav-button" data-tab="blog">
+                            <span class="nav-button-title">Blog</span>
+                            <span class="nav-button-desc">Writing Journey</span>
+                        </button>
+                        <button class="nav-button" data-tab="contact">
+                            <span class="nav-button-title">Contact</span>
+                            <span class="nav-button-desc">Get in Touch</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bio section -->
+        <section id="bio" class="tab-content">
+            <div class="content-container">
+                <h2>About the Author</h2>
+                <div class="bio-content">
+                    <div class="bio-text">
+                        <p>Saad Facchine is a Muslim and LGBTQIA+ writer living with his husband. His debut novel, five years in the making, weaves questions of faith, queerness, and technology into a story about choice, control, and love.</p>
+                        
+                        <p>By day, Saad works in artificial intelligence and data, helping organizations understand how technology can both empower and constrain us. By night (and many weekends), he writes fiction that bridges those same themes, always searching for the human heart inside the machinery.</p>
+                        
+                        <p>When he's not writing or working, you'll probably find him with a cup of chai, planning his next trip, or getting lost in the kind of story that lingers long after the last page.</p>
+                    </div>
+                    <div class="author-image" style="width: 150px; height: 150px; margin: 0 auto; display: flex; justify-content: center; align-items: center;">
+                        <img src="author-photo.jpeg" alt="Saad Facchine" class="author-photo" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog section -->
+        <section id="blog" class="tab-content">
+            <div class="content-container">
+                <h2>Writing Journey</h2>
+                <div class="blog-posts">
+                    <article class="blog-post">
+                        <h3>Welcome to My Writing World</h3>
+                        <date class="post-date">Coming Soon</date>
+                        <p>Stay tuned for insights into my writing process, character development, and the fascinating world of speculative fiction that explores what it means to be human in an age of artificial intelligence.</p>
+                    </article>
+                    <div class="blog-placeholder">
+                        <p>Blog posts will appear here as your writing journey unfolds...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact section -->
+        <section id="contact" class="tab-content">
+            <div class="content-container">
+                <h2>Get in Touch</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <p>I'd love to hear from readers, book clubs, and fellow writers. Whether you have questions about <em>The Great American Caliphate</em> or want to discuss the intersection of technology and humanity in literature, feel free to reach out.</p>
+                    </div>
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
