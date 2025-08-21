@@ -10,8 +10,24 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // Parse the form data
-    const formData = JSON.parse(event.body);
+    // Debug: Log the incoming data
+    console.log('Event body:', event.body);
+    console.log('Content-Type:', event.headers['content-type']);
+    
+    // Parse the form data - Netlify forms send URL-encoded data
+    let formData;
+    if (event.headers['content-type'] && event.headers['content-type'].includes('application/json')) {
+      formData = JSON.parse(event.body);
+    } else {
+      // Parse URL-encoded form data
+      const params = new URLSearchParams(event.body);
+      formData = {};
+      for (const [key, value] of params) {
+        formData[key] = value;
+      }
+    }
+    
+    console.log('Parsed form data:', formData);
     
     // Check if this is a newsletter signup
     if (formData['form-name'] === 'newsletter') {
