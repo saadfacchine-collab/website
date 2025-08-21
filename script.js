@@ -252,8 +252,11 @@ function revealPostTypingContent() {
 // Newsletter form handling (AJAX submission)
 function initializeNewsletterForm() {
     const newsletterForm = document.querySelector('.newsletter-form');
+    console.log('Newsletter form found:', newsletterForm); // Debug log
+    
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', function(e) {
+            console.log('Form submitted!'); // Debug log
             e.preventDefault(); // Prevent default form submission
             
             const emailInput = newsletterForm.querySelector('.email-input');
@@ -408,6 +411,7 @@ function initializeSmoothScrolling() {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing...'); // Debug log
     // Set up cold open - hide header initially
     const header = document.querySelector('.header');
     header.style.opacity = '0';
@@ -432,6 +436,19 @@ document.addEventListener('DOMContentLoaded', () => {
         startTypingAnimation();
     }, 1000);
 });
+
+// Also try to initialize immediately in case DOM is already loaded
+if (document.readyState === 'loading') {
+    console.log('DOM still loading...'); // Debug log
+} else {
+    console.log('DOM already loaded, initializing immediately...'); // Debug log
+    initializeNavigation();
+    initializeNewsletterForm();
+    initializeContactForm();
+    initializeSocialLinks();
+    initializeSmoothScrolling();
+    startTypingAnimation();
+}
 
 // Create skip intro button
 function createSkipIntroButton() {

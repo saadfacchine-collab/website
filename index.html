@@ -44,7 +44,7 @@
                 <h2><em>THE GREAT AMERICAN CALIPHATE</em></h2>
                 <p class="author-name">by Saad Facchine</p>
                 <p class="newsletter-description">Get updates on my debut novel's journey to publication</p>
-                <form class="newsletter-form" name="newsletter" method="POST" netlify-honeypot="bot-field">
+                <form class="newsletter-form" name="newsletter" method="POST" netlify-honeypot="bot-field" onsubmit="return false;">
                     <input type="hidden" name="form-name" value="newsletter" />
                     <p class="honeypot">
                         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
@@ -141,6 +141,6 @@
         </section>
     </main>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=1"></script>
 </body>
 </html>
