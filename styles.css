@@ -273,6 +273,11 @@ h3 {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
+.nav-button:active {
+    transform: translateY(-2px);
+    transition: transform 0.1s ease;
+}
+
 .nav-button-title {
     display: block;
     font-family: 'Crimson Text', serif;
