@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../Users/saad/Documents/Cursor/Website/netlify/functions/test-env.js"],
+  "sourceRoot": "/var/folders/61/g63dhf3n45sd6fwvp2hl_jr80000gn/T/tmp-45969-l4Crao1JA0Wg",
+  "sourcesContent": ["exports.handler = async (event, context) => {\n  return {\n    statusCode: 200,\n    body: JSON.stringify({\n      message: 'Environment variables test',\n      hasApiKey: !!process.env.CONVERTKIT_API_KEY,\n      hasFormId: !!process.env.CONVERTKIT_FORM_ID,\n      apiKeyLength: process.env.CONVERTKIT_API_KEY ? process.env.CONVERTKIT_API_KEY.length : 0,\n      formId: process.env.CONVERTKIT_FORM_ID || 'not set'\n    })\n  };\n};\n"],
+  "mappings": ";AAAA,QAAQ,UAAU,OAAO,OAAO,YAAY;AAC1C,SAAO;AAAA,IACL,YAAY;AAAA,IACZ,MAAM,KAAK,UAAU;AAAA,MACnB,SAAS;AAAA,MACT,WAAW,CAAC,CAAC,QAAQ,IAAI;AAAA,MACzB,WAAW,CAAC,CAAC,QAAQ,IAAI;AAAA,MACzB,cAAc,QAAQ,IAAI,qBAAqB,QAAQ,IAAI,mBAAmB,SAAS;AAAA,MACvF,QAAQ,QAAQ,IAAI,sBAAsB;AAAA,IAC5C,CAAC;AAAA,EACH;AACF;",
+  "names": []
+}

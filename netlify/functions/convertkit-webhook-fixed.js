@@ -33,7 +33,7 @@ exports.handler = async (event, context) => {
     if (formData['form-name'] === 'newsletter') {
       const email = formData.email;
       
-      // ConvertKit API configuration - using the correct API key and form ID
+      // ConvertKit configuration - using the correct API key and form ID
       const CONVERTKIT_API_KEY = process.env.CONVERTKIT_API_KEY; // This should be your API key: fOXIWSd2iJSoabovGKfSSQ
       const CONVERTKIT_FORM_ID = process.env.CONVERTKIT_FORM_ID; // This should be: 8464835
       
@@ -45,7 +45,7 @@ exports.handler = async (event, context) => {
         };
       }
       
-      // Add subscriber to ConvertKit
+      // Add subscriber to ConvertKit using the correct endpoint and format
       const response = await fetch(`https://api.convertkit.com/v3/forms/${CONVERTKIT_FORM_ID}/subscribe`, {
         method: 'POST',
         headers: {
@@ -54,7 +54,7 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({
           api_key: CONVERTKIT_API_KEY,
           email: email,
-          first_name: '',
+          first_name: formData.name || '',
           fields: {
             source: 'website_newsletter'
           }
@@ -66,6 +66,7 @@ exports.handler = async (event, context) => {
       console.log('ConvertKit Form ID:', CONVERTKIT_FORM_ID);
       
       const result = await response.json();
+      console.log('ConvertKit API response:', result);
       
       if (response.ok) {
         console.log('Subscriber added to ConvertKit:', email);
@@ -73,7 +74,8 @@ exports.handler = async (event, context) => {
           statusCode: 200,
           body: JSON.stringify({ 
             success: true, 
-            message: 'Subscriber added successfully' 
+            message: 'Subscriber added successfully',
+            subscriber: result
           })
         };
       } else {
