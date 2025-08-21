@@ -398,6 +398,68 @@ h3 {
     margin-top: 2rem;
 }
 
+.blog-placeholder a {
+    color: #2c2c2c;
+    text-decoration: underline;
+}
+
+.loading-message {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 2rem;
+}
+
+.substack-post {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.substack-post:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.substack-post h3 {
+    margin-bottom: 0.5rem;
+}
+
+.substack-post h3 a {
+    color: #2c2c2c;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.substack-post h3 a:hover {
+    color: #555;
+}
+
+.substack-excerpt {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.substack-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.read-more-link {
+    color: #2c2c2c;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.read-more-link:hover {
+    color: #555;
+}
+
 /* Contact section */
 .contact-content {
     max-width: 600px;

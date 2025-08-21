@@ -334,6 +334,67 @@ function initializeSmoothScrolling() {
     document.head.appendChild(style);
 }
 
+// Function to load Substack posts
+async function loadSubstackPosts() {
+    const blogPostsContainer = document.getElementById('blog-posts');
+    const loadingMessage = document.getElementById('loading-message');
+    const placeholder = document.getElementById('blog-placeholder');
+    
+    try {
+        // Use a CORS proxy to fetch the RSS feed
+        const proxyUrl = 'https://api.rss2json.com/v1/api.json?rss_url=';
+        const rssUrl = 'https://sfacchine.substack.com/feed';
+        
+        const response = await fetch(proxyUrl + encodeURIComponent(rssUrl));
+        const data = await response.json();
+        
+        if (data.status === 'ok' && data.items && data.items.length > 0) {
+            // Clear loading message
+            loadingMessage.style.display = 'none';
+            
+            // Display posts (limit to 5 most recent)
+            const posts = data.items.slice(0, 5);
+            
+            posts.forEach(post => {
+                const postElement = document.createElement('article');
+                postElement.className = 'substack-post';
+                
+                // Create excerpt (first 200 chars of content, stripped of HTML)
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = post.content;
+                const excerpt = tempDiv.textContent.substring(0, 200) + '...';
+                
+                // Format date
+                const postDate = new Date(post.pubDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                postElement.innerHTML = `
+                    <h3><a href="${post.link}" target="_blank">${post.title}</a></h3>
+                    <div class="substack-meta">
+                        <span class="post-date">${postDate}</span>
+                        <a href="${post.link}" target="_blank" class="read-more-link">Read on Substack →</a>
+                    </div>
+                    <p class="substack-excerpt">${excerpt}</p>
+                `;
+                
+                blogPostsContainer.appendChild(postElement);
+            });
+        } else {
+            // No posts found
+            loadingMessage.style.display = 'none';
+            placeholder.style.display = 'block';
+        }
+    } catch (error) {
+        console.log('Could not load Substack posts:', error);
+        // Show placeholder if RSS fails
+        loadingMessage.style.display = 'none';
+        placeholder.style.display = 'block';
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Set up cold open - hide header initially
@@ -354,6 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeContactForm();
     initializeSocialLinks();
     initializeSmoothScrolling();
+    loadSubstackPosts(); // Load blog posts from Substack
     
     // Start typing animation on page load with a short delay
     setTimeout(() => {
