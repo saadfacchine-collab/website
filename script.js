@@ -249,17 +249,33 @@ function revealPostTypingContent() {
     }, 200); // Small delay after typing completes
 }
 
-// Newsletter form handling (Netlify forms)
+// Newsletter form handling (AJAX submission)
 function initializeNewsletterForm() {
     const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', function(e) {
-            // Show success message after form submission
-            setTimeout(() => {
-                const emailInput = newsletterForm.querySelector('.email-input');
-                const submitBtn = newsletterForm.querySelector('.subscribe-btn');
-                
-                if (emailInput && submitBtn) {
+            e.preventDefault(); // Prevent default form submission
+            
+            const emailInput = newsletterForm.querySelector('.email-input');
+            const submitBtn = newsletterForm.querySelector('.subscribe-btn');
+            const originalBtnText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Subscribing...';
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = new FormData(newsletterForm);
+            
+            // Submit via AJAX
+            fetch('/.netlify/functions/convertkit-webhook', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
                     emailInput.style.display = 'none';
                     submitBtn.style.display = 'none';
                     
@@ -269,8 +285,49 @@ function initializeNewsletterForm() {
                     successMessage.style.padding = '1rem';
                     
                     newsletterForm.appendChild(successMessage);
+                } else {
+                    // Show error message
+                    submitBtn.textContent = 'Error - Try Again';
+                    submitBtn.disabled = false;
+                    
+                    const errorMessage = document.createElement('div');
+                    errorMessage.innerHTML = '<p style="color: #e74c3c; font-weight: 600; margin: 0;">❌ Something went wrong. Please try again.</p>';
+                    errorMessage.style.textAlign = 'center';
+                    errorMessage.style.padding = '1rem';
+                    
+                    newsletterForm.appendChild(errorMessage);
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.textContent = originalBtnText;
+                        submitBtn.disabled = false;
+                        if (errorMessage.parentNode) {
+                            errorMessage.remove();
+                        }
+                    }, 3000);
                 }
-            }, 1000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                submitBtn.textContent = 'Error - Try Again';
+                submitBtn.disabled = false;
+                
+                const errorMessage = document.createElement('div');
+                errorMessage.innerHTML = '<p style="color: #e74c3c; font-weight: 600; margin: 0;">❌ Something went wrong. Please try again.</p>';
+                errorMessage.style.textAlign = 'center';
+                errorMessage.style.padding = '1rem';
+                
+                newsletterForm.appendChild(errorMessage);
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
+                    if (errorMessage.parentNode) {
+                        errorMessage.remove();
+                    }
+                }, 3000);
+            });
         });
     }
 }
