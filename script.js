@@ -271,12 +271,18 @@ function initializeNewsletterForm() {
             const formData = new FormData(newsletterForm);
             
             // Submit via AJAX
+            console.log('Submitting form data:', formData); // Debug log
             fetch('/.netlify/functions/convertkit-webhook', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('Response status:', response.status); // Debug log
+                console.log('Response headers:', response.headers); // Debug log
+                return response.json();
+            })
             .then(data => {
+                console.log('Response data:', data); // Debug log
                 if (data.success) {
                     // Show success message
                     emailInput.style.display = 'none';
@@ -311,12 +317,12 @@ function initializeNewsletterForm() {
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Fetch error:', error);
                 submitBtn.textContent = 'Error - Try Again';
                 submitBtn.disabled = false;
                 
                 const errorMessage = document.createElement('div');
-                errorMessage.innerHTML = '<p style="color: #e74c3c; font-weight: 600; margin: 0;">❌ Something went wrong. Please try again.</p>';
+                errorMessage.innerHTML = `<p style="color: #e74c3c; font-weight: 600; margin: 0;">❌ Error: ${error.message}</p>`;
                 errorMessage.style.textAlign = 'center';
                 errorMessage.style.padding = '1rem';
                 
