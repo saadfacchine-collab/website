@@ -473,6 +473,11 @@ h3 {
     color: var(--accent-teal-hover);
 }
 
+/* Honeypot field (hidden from users) */
+.honeypot {
+    display: none;
+}
+
 /* Contact section */
 .contact-content {
     max-width: 600px;
