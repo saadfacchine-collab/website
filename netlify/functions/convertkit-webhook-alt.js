@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const https = require('https');
 
 exports.handler = async (event, context) => {
   // Only handle POST requests
@@ -45,43 +45,79 @@ exports.handler = async (event, context) => {
         };
       }
       
-      // Add subscriber to ConvertKit
-      const response = await fetch(`https://api.convertkit.com/v3/forms/${CONVERTKIT_FORM_ID}/subscribe`, {
+      // Add subscriber to ConvertKit using https module
+      const postData = JSON.stringify({
+        api_key: CONVERTKIT_API_KEY,
+        email: email,
+        first_name: '',
+        fields: {
+          source: 'website_newsletter'
+        }
+      });
+      
+      const options = {
+        hostname: 'api.convertkit.com',
+        port: 443,
+        path: `/v3/forms/${CONVERTKIT_FORM_ID}/subscribe`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          api_key: CONVERTKIT_API_KEY,
-          email: email,
-          first_name: '', // Optional: you can add a name field to your form
-          fields: {
-            source: 'website_newsletter'
-          }
-        })
+          'Content-Length': Buffer.byteLength(postData)
+        }
+      };
+      
+      return new Promise((resolve, reject) => {
+        const req = https.request(options, (res) => {
+          let data = '';
+          
+          res.on('data', (chunk) => {
+            data += chunk;
+          });
+          
+          res.on('end', () => {
+            try {
+              const result = JSON.parse(data);
+              
+              if (res.statusCode >= 200 && res.statusCode < 300) {
+                console.log('Subscriber added to ConvertKit:', email);
+                resolve({
+                  statusCode: 200,
+                  body: JSON.stringify({ 
+                    success: true, 
+                    message: 'Subscriber added successfully' 
+                  })
+                });
+              } else {
+                console.error('ConvertKit API error:', result);
+                resolve({
+                  statusCode: 400,
+                  body: JSON.stringify({ 
+                    error: 'Failed to add subscriber',
+                    details: result 
+                  })
+                });
+              }
+            } catch (error) {
+              console.error('Error parsing response:', error);
+              resolve({
+                statusCode: 500,
+                body: JSON.stringify({ error: 'Error parsing response' })
+              });
+            }
+          });
+        });
+        
+        req.on('error', (error) => {
+          console.error('Request error:', error);
+          resolve({
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Request failed' })
+          });
+        });
+        
+        req.write(postData);
+        req.end();
       });
-      
-      const result = await response.json();
-      
-      if (response.ok) {
-        console.log('Subscriber added to ConvertKit:', email);
-        return {
-          statusCode: 200,
-          body: JSON.stringify({ 
-            success: true, 
-            message: 'Subscriber added successfully' 
-          })
-        };
-      } else {
-        console.error('ConvertKit API error:', result);
-        return {
-          statusCode: 400,
-          body: JSON.stringify({ 
-            error: 'Failed to add subscriber',
-            details: result 
-          })
-        };
-      }
     }
     
     // For contact form submissions, just log them
