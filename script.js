@@ -251,12 +251,26 @@ function revealPostTypingContent() {
 
 // Newsletter form handling (Netlify forms)
 function initializeNewsletterForm() {
-    // Newsletter form is now handled by Netlify forms
     const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', function(e) {
-            // Netlify will handle the form submission
-            // You can add custom success handling here if needed
+            // Show success message after form submission
+            setTimeout(() => {
+                const emailInput = newsletterForm.querySelector('.email-input');
+                const submitBtn = newsletterForm.querySelector('.subscribe-btn');
+                
+                if (emailInput && submitBtn) {
+                    emailInput.style.display = 'none';
+                    submitBtn.style.display = 'none';
+                    
+                    const successMessage = document.createElement('div');
+                    successMessage.innerHTML = '<p style="color: var(--accent-teal); font-weight: 600; margin: 0;">✓ Thank you for subscribing!</p>';
+                    successMessage.style.textAlign = 'center';
+                    successMessage.style.padding = '1rem';
+                    
+                    newsletterForm.appendChild(successMessage);
+                }
+            }, 1000);
         });
     }
 }
@@ -266,27 +280,24 @@ function initializeContactForm() {
     const form = document.getElementById('contact-form');
     
     form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
         const button = form.querySelector('.submit-btn');
         const originalText = button.textContent;
         
-        // Simulate form submission
+        // Show sending state
         button.textContent = 'Sending...';
         button.disabled = true;
         
+        // Let Netlify handle the form submission
+        // Show success message after a delay
         setTimeout(() => {
             button.textContent = 'Message Sent!';
-            
-            // Reset form
-            form.reset();
             
             // Show success message
             const successMessage = document.createElement('p');
             successMessage.textContent = 'Thank you for your message! I\'ll get back to you soon.';
-            successMessage.style.color = '#4a9e4a';
+            successMessage.style.color = 'var(--accent-teal)';
             successMessage.style.marginTop = '1rem';
-            successMessage.style.fontWeight = '500';
+            successMessage.style.fontWeight = '600';
             successMessage.style.textAlign = 'center';
             
             // Remove any existing success message
@@ -298,14 +309,16 @@ function initializeContactForm() {
             successMessage.classList.add('contact-success-message');
             form.parentNode.appendChild(successMessage);
             
+            // Reset form and button after delay
             setTimeout(() => {
+                form.reset();
                 button.textContent = originalText;
                 button.disabled = false;
                 if (successMessage.parentNode) {
                     successMessage.remove();
                 }
             }, 3000);
-        }, 1500);
+        }, 1000);
     });
 }
 
