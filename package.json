@@ -1,0 +1,19 @@
+{
+  "name": "saad-facchine-website",
+  "version": "1.0.0",
+  "description": "Author website for Saad Facchine",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "netlify-cli": "^12.0.0"
+  },
+  "keywords": ["author", "website", "novel"],
+  "author": "Saad Facchine",
+  "license": "MIT"
+}
