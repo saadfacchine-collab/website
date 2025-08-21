@@ -11,8 +11,8 @@ exports.handler = async (event, context) => {
 
   try {
     // Debug: Log the incoming data
-    console.log('Event body:', event.body);
-    console.log('Content-Type:', event.headers['content-type']);
+    console.log('📥 [', new Date().toISOString(), '] Event body:', event.body);
+    console.log('📥 [', new Date().toISOString(), '] Content-Type:', event.headers['content-type']);
     
     // Parse the form data - Netlify forms send URL-encoded data
     let formData;
@@ -68,16 +68,17 @@ exports.handler = async (event, context) => {
       const result = await response.json();
       
       if (response.ok) {
-        console.log('Subscriber added to ConvertKit:', email);
+        console.log('✅ Subscriber added to ConvertKit:', email);
         return {
           statusCode: 200,
           body: JSON.stringify({ 
             success: true, 
-            message: 'Subscriber added successfully' 
+            message: 'Subscriber added successfully',
+            subscriber: result
           })
         };
       } else {
-        console.error('ConvertKit API error:', result);
+        console.error('❌ ConvertKit API error:', result);
         return {
           statusCode: 400,
           body: JSON.stringify({ 

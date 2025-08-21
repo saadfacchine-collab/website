@@ -3021,8 +3021,8 @@ exports.handler = async (event, context) => {
     };
   }
   try {
-    console.log("Event body:", event.body);
-    console.log("Content-Type:", event.headers["content-type"]);
+    console.log("\u{1F4E5} [", (/* @__PURE__ */ new Date()).toISOString(), "] Event body:", event.body);
+    console.log("\u{1F4E5} [", (/* @__PURE__ */ new Date()).toISOString(), "] Content-Type:", event.headers["content-type"]);
     let formData;
     if (event.headers["content-type"] && event.headers["content-type"].includes("application/json")) {
       formData = JSON.parse(event.body);
@@ -3064,16 +3064,17 @@ exports.handler = async (event, context) => {
       console.log("ConvertKit Form ID:", CONVERTKIT_FORM_ID);
       const result = await response.json();
       if (response.ok) {
-        console.log("Subscriber added to ConvertKit:", email);
+        console.log("\u2705 Subscriber added to ConvertKit:", email);
         return {
           statusCode: 200,
           body: JSON.stringify({
             success: true,
-            message: "Subscriber added successfully"
+            message: "Subscriber added successfully",
+            subscriber: result
           })
         };
       } else {
-        console.error("ConvertKit API error:", result);
+        console.error("\u274C ConvertKit API error:", result);
         return {
           statusCode: 400,
           body: JSON.stringify({
