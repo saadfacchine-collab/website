@@ -5,6 +5,12 @@
     box-sizing: border-box;
 }
 
+:root {
+    --accent-teal: #2d7d7d;
+    --accent-teal-hover: #1f6b6b;
+    --accent-teal-light: #4a9999;
+}
+
 body {
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 1.6;
@@ -62,6 +68,10 @@ h3 {
     color: #2c2c2c;
 }
 
+.nav-brand h1 .last-name {
+    color: var(--accent-teal);
+}
+
 .nav-links {
     display: flex;
     gap: 2rem;
@@ -79,7 +89,7 @@ h3 {
 
 .nav-link:hover,
 .nav-link.active {
-    color: #2c2c2c;
+    color: var(--accent-teal);
     background-color: #f8f8f8;
 }
 
@@ -186,10 +196,12 @@ h3 {
 }
 
 .author-name {
-    font-size: 1.3rem;
-    color: #666;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.4rem;
+    color: #444;
     margin-bottom: 1rem;
-    font-weight: 400;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .newsletter-description {
@@ -221,9 +233,9 @@ h3 {
 
 .email-input:focus {
     outline: none;
-    border-color: #2c2c2c;
+    border-color: var(--accent-teal);
     background: white;
-    box-shadow: 0 0 0 3px rgba(44, 44, 44, 0.1);
+    box-shadow: 0 0 0 3px rgba(45, 125, 125, 0.1);
 }
 
 .subscribe-btn {
@@ -268,9 +280,9 @@ h3 {
 }
 
 .nav-button:hover {
-    border-color: #2c2c2c;
+    border-color: var(--accent-teal);
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(45, 125, 125, 0.15);
 }
 
 .nav-button:active {
@@ -283,7 +295,7 @@ h3 {
     font-family: 'Crimson Text', serif;
     font-size: 1.5rem;
     font-weight: 600;
-    color: #2c2c2c;
+    color: var(--accent-teal);
     margin-bottom: 0.5rem;
 }
 
@@ -316,8 +328,8 @@ h3 {
 }
 
 .social-link:hover {
-    color: #2c2c2c;
-    border-color: #2c2c2c;
+    color: var(--accent-teal);
+    border-color: var(--accent-teal);
     transform: translateY(-2px);
 }
 
@@ -399,7 +411,7 @@ h3 {
 }
 
 .blog-placeholder a {
-    color: #2c2c2c;
+    color: var(--accent-teal);
     text-decoration: underline;
 }
 
@@ -432,7 +444,7 @@ h3 {
 }
 
 .substack-post h3 a:hover {
-    color: #555;
+    color: var(--accent-teal);
 }
 
 .substack-excerpt {
@@ -450,14 +462,14 @@ h3 {
 }
 
 .read-more-link {
-    color: #2c2c2c;
+    color: var(--accent-teal);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
 .read-more-link:hover {
-    color: #555;
+    color: var(--accent-teal-hover);
 }
 
 /* Contact section */
@@ -507,7 +519,8 @@ h3 {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #2c2c2c;
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 0 2px rgba(45, 125, 125, 0.1);
 }
 
 .form-group textarea {
