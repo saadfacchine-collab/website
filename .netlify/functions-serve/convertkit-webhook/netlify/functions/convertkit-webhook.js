@@ -3014,9 +3014,24 @@ var require_lib2 = __commonJS({
 // netlify/functions/convertkit-webhook.js
 var fetch = require_lib2();
 exports.handler = async (event, context) => {
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS"
+      },
+      body: ""
+    };
+  }
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ error: "Method not allowed" })
     };
   }
@@ -3042,6 +3057,10 @@ exports.handler = async (event, context) => {
         console.error("ConvertKit configuration missing");
         return {
           statusCode: 500,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify({ error: "Server configuration error" })
         };
       }
@@ -3067,6 +3086,10 @@ exports.handler = async (event, context) => {
         console.log("\u2705 Subscriber added to ConvertKit:", email);
         return {
           statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify({
             success: true,
             message: "Subscriber added successfully",
@@ -3077,6 +3100,10 @@ exports.handler = async (event, context) => {
         console.error("\u274C ConvertKit API error:", result);
         return {
           statusCode: 400,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify({
             error: "Failed to add subscriber",
             details: result
@@ -3093,6 +3120,10 @@ exports.handler = async (event, context) => {
       });
       return {
         statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
           success: true,
           message: "Contact form submitted successfully"
@@ -3101,12 +3132,20 @@ exports.handler = async (event, context) => {
     }
     return {
       statusCode: 400,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ error: "Unknown form type" })
     };
   } catch (error) {
     console.error("Function error:", error);
     return {
       statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ error: "Internal server error" })
     };
   }

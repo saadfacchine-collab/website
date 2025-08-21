@@ -267,14 +267,18 @@ function initializeNewsletterForm() {
             submitBtn.textContent = 'Subscribing...';
             submitBtn.disabled = true;
             
-            // Get form data
+            // Get form data and convert to URL-encoded format
             const formData = new FormData(newsletterForm);
+            const urlEncodedData = new URLSearchParams(formData).toString();
             
             // Submit via AJAX
-            console.log('Submitting form data:', formData); // Debug log
+            console.log('Submitting form data:', urlEncodedData); // Debug log
             fetch('/.netlify/functions/convertkit-webhook', {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: urlEncodedData
             })
             .then(response => {
                 console.log('Response status:', response.status); // Debug log
