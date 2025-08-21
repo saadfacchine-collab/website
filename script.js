@@ -7,8 +7,8 @@ const novelExcerpt = [
 let currentSegment = 0;
 let currentChar = 0;
 let isTyping = false;
-let typingSpeed = 50; // milliseconds per character (slower)
-let pauseBetweenSegments = 800; // pause between character and Awaz segments (shorter)
+let typingSpeed = 35; // milliseconds per character (smoother)
+let pauseBetweenSegments = 600; // pause between character and Awaz segments (shorter)
 
 // Tab navigation
 function initializeNavigation() {
@@ -85,10 +85,10 @@ function startTypingAnimation() {
             
             // Check if we're about to type "Inshallah" - add dramatic pause
             if (nextPart === 'Inshallah' && currentIndex > 0) {
-                // Add dramatic pause before Inshallah
-                setTimeout(() => {
-                    continueWithInshallah();
-                }, 1200); // Longer dramatic pause
+                            // Add dramatic pause before Inshallah
+            setTimeout(() => {
+                continueWithInshallah();
+            }, 800); // Shorter dramatic pause for smoother flow
                 return;
             }
             
@@ -98,10 +98,12 @@ function startTypingAnimation() {
             
             currentIndex++;
             
-            // Check for sentence endings and add pauses
+            // Check for sentence endings and add longer pauses
             let nextDelay = typingSpeed;
             if (currentChar === '.' || currentChar === '?' || currentChar === '!') {
-                nextDelay = typingSpeed * 8; // Pause after sentences
+                nextDelay = typingSpeed * 12; // Longer pause after sentences for more drama
+            } else if (currentChar === '\n') {
+                nextDelay = typingSpeed * 10; // Pause after line breaks for dramatic effect
             }
             
             setTimeout(typeChar, nextDelay);
@@ -133,7 +135,7 @@ function startTypingAnimation() {
                 
                 inshallahIndex++;
                 currentIndex++;
-                setTimeout(typeInshallahChar, typingSpeed * 2); // Slower typing for Inshallah
+                setTimeout(typeInshallahChar, typingSpeed * 1.5); // Smoother typing for Inshallah
             } else {
                 // Animation complete after Inshallah - remove inline cursor
                 const formattedBefore = beforeInshallah.replace(/\n/g, '<br>');
@@ -142,7 +144,7 @@ function startTypingAnimation() {
                 
                 setTimeout(() => {
                     revealPostTypingContent();
-                }, 1200); // Shorter pause after Inshallah
+                }, 800); // Smoother pause after Inshallah
             }
         }
         
