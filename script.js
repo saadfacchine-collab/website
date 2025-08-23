@@ -85,10 +85,10 @@ function startTypingAnimation() {
             
             // Check if we're about to type "Inshallah" - add dramatic pause
             if (nextPart === 'Inshallah' && currentIndex > 0) {
-                            // Add dramatic pause before Inshallah
-            setTimeout(() => {
-                continueWithInshallah();
-            }, 800); // Shorter dramatic pause for smoother flow
+                // Add dramatic pause before Inshallah
+                setTimeout(() => {
+                    continueWithInshallah();
+                }, 800); // Shorter dramatic pause for smoother flow
                 return;
             }
             
@@ -243,6 +243,14 @@ function revealPostTypingContent() {
             setTimeout(() => {
                 postTypingContent.style.opacity = '1';
                 postTypingContent.style.transform = 'translateY(0)';
+                
+                // Initialize and start US ripple animation after content is visible
+                setTimeout(() => {
+                    initializeUSRippleAnimation();
+                    setTimeout(() => {
+                        startUSRippleAnimation();
+                    }, 500);
+                }, 300);
             }, 50);
         }, 600); // Wait for container adjustment to nearly complete
         
@@ -441,10 +449,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSocialLinks();
     initializeSmoothScrolling();
     
-    // Start typing animation on page load with a short delay
-    setTimeout(() => {
-        startTypingAnimation();
-    }, 1000);
+    // Load D3.js and TopoJSON for US ripple animation
+    loadD3AndTopoJSON().then(() => {
+        // Start typing animation on page load with a short delay
+        setTimeout(() => {
+            startTypingAnimation();
+        }, 1000);
+    });
 });
 
 // Also try to initialize immediately in case DOM is already loaded
@@ -452,12 +463,104 @@ if (document.readyState === 'loading') {
     console.log('DOM still loading...'); // Debug log
 } else {
     console.log('DOM already loaded, initializing immediately...'); // Debug log
-    initializeNavigation();
-    initializeNewsletterForm();
-    initializeContactForm();
-    initializeSocialLinks();
-    initializeSmoothScrolling();
-    startTypingAnimation();
+    loadD3AndTopoJSON().then(() => {
+        initializeNavigation();
+        initializeNewsletterForm();
+        initializeContactForm();
+        initializeSocialLinks();
+        initializeSmoothScrolling();
+        startTypingAnimation();
+    });
+}
+
+// Load D3.js and TopoJSON libraries
+function loadD3AndTopoJSON() {
+    return new Promise((resolve) => {
+        // Check if D3 is already loaded
+        if (typeof d3 !== 'undefined' && typeof topojson !== 'undefined') {
+            resolve();
+            return;
+        }
+        
+        // Load D3.js
+        const d3Script = document.createElement('script');
+        d3Script.src = 'https://d3js.org/d3.v7.min.js';
+        d3Script.onload = () => {
+            // Load TopoJSON after D3
+            const topojsonScript = document.createElement('script');
+            topojsonScript.src = 'https://unpkg.com/topojson-client@3';
+            topojsonScript.onload = () => {
+                resolve();
+            };
+            document.head.appendChild(topojsonScript);
+        };
+        document.head.appendChild(d3Script);
+    });
+}
+
+// US Ripple Animation Integration
+let usRippleAnimation = null;
+
+function initializeUSRippleAnimation() {
+    if (typeof USRippleAnimation === 'undefined') {
+        console.log('Loading US Ripple Animation...');
+        const script = document.createElement('script');
+        script.src = 'us-ripple-animation.js';
+        script.onload = () => {
+            createUSRippleAnimation();
+        };
+        document.head.appendChild(script);
+    } else {
+        createUSRippleAnimation();
+    }
+}
+
+function createUSRippleAnimation() {
+    // Create container for the animation
+    const postTypingContent = document.getElementById('post-typing-content');
+    if (!postTypingContent) return;
+    
+    // Create animation container
+    const animationContainer = document.createElement('div');
+    animationContainer.id = 'us-ripple-container';
+    animationContainer.style.cssText = `
+        width: 100%;
+        max-width: 800px;
+        margin: 20px auto;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    `;
+    
+    // Insert before the newsletter section
+    const newsletterSection = postTypingContent.querySelector('.prominent-newsletter');
+    if (newsletterSection) {
+        postTypingContent.insertBefore(animationContainer, newsletterSection);
+    } else {
+        postTypingContent.appendChild(animationContainer);
+    }
+    
+    // Initialize the animation
+    usRippleAnimation = new USRippleAnimation('#us-ripple-container');
+    usRippleAnimation.onComplete = () => {
+        // Show the newsletter section after animation completes
+        if (newsletterSection) {
+            newsletterSection.style.opacity = '0';
+            newsletterSection.style.transform = 'translateY(20px)';
+            newsletterSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            
+            setTimeout(() => {
+                newsletterSection.style.opacity = '1';
+                newsletterSection.style.transform = 'translateY(0)';
+            }, 100);
+        }
+    };
+}
+
+function startUSRippleAnimation() {
+    if (usRippleAnimation && !usRippleAnimation.isAnimating) {
+        usRippleAnimation.startAnimation();
+    }
 }
 
 // Create skip intro button
