@@ -220,16 +220,16 @@ function revealPostTypingContent() {
     // Start the smooth transition sequence
     setTimeout(() => {
         // First, smoothly adjust the typing container
-        typingContainer.style.transition = 'all 1.5s ease-out';
+        typingContainer.style.transition = 'all 1.2s ease-out';
         typingContainer.style.minHeight = 'auto';
-        typingContainer.style.padding = '2rem 0';
+        typingContainer.style.padding = '1rem 0';
         
         // Simultaneously start showing the header
         header.style.opacity = '1';
         header.style.transform = 'translateY(0)';
         
         // Adjust main content margin smoothly
-        mainContent.style.transition = 'margin-top 1.5s ease-out';
+        mainContent.style.transition = 'margin-top 1.2s ease-out';
         mainContent.style.marginTop = '100px';
         
         // After the container adjustment, show the content
@@ -246,7 +246,7 @@ function revealPostTypingContent() {
                 
 
             }, 50);
-        }, 800); // Wait for container adjustment to nearly complete
+        }, 600); // Wait for container adjustment to nearly complete
         
     }, 200); // Small delay after typing completes
 }
