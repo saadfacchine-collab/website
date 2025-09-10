@@ -219,12 +219,15 @@ function revealPostTypingContent() {
     
     // Start the smooth transition sequence
     setTimeout(() => {
+        // Set up header transition
+        header.style.transition = 'opacity 1.2s ease-out, transform 1.2s ease-out';
+        
         // First, smoothly adjust the typing container
         typingContainer.style.transition = 'all 1.2s ease-out';
         typingContainer.style.minHeight = 'auto';
         typingContainer.style.padding = '1rem 0';
         
-        // Simultaneously start showing the header
+        // Simultaneously start showing the header with smooth transition
         header.style.opacity = '1';
         header.style.transform = 'translateY(0)';
         
@@ -471,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const header = document.querySelector('.header');
         header.style.opacity = '0';
         header.style.transform = 'translateY(-100%)';
-        header.style.transition = 'opacity 1s ease, transform 1s ease';
+        header.style.transition = 'opacity 1.2s ease-out, transform 1.2s ease-out';
         
         // Adjust main content margin for cold open
         const mainContent = document.querySelector('.main-content');
@@ -591,7 +594,7 @@ if (document.readyState === 'loading') {
         const header = document.querySelector('.header');
         header.style.opacity = '0';
         header.style.transform = 'translateY(-100%)';
-        header.style.transition = 'opacity 1s ease, transform 1s ease';
+        header.style.transition = 'opacity 1.2s ease-out, transform 1.2s ease-out';
         
         // Adjust main content margin for cold open
         const mainContent = document.querySelector('.main-content');
