@@ -224,8 +224,8 @@ function revealPostTypingContent() {
         
         // First, smoothly adjust the typing container
         typingContainer.style.transition = 'all 1.2s ease-out';
-        typingContainer.style.minHeight = 'auto';
-        typingContainer.style.padding = '1rem 0';
+        typingContainer.style.minHeight = '200px';
+        typingContainer.style.marginBottom = '0.5rem';
         
         // Simultaneously start showing the header with smooth transition
         header.style.opacity = '1';
