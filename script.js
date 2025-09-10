@@ -498,6 +498,13 @@ document.addEventListener('DOMContentLoaded', () => {
             homeTab.classList.add('active');
         }
         
+        // Adjust typing container for normal layout (not full height)
+        const typingContainer = document.querySelector('.typing-container');
+        if (typingContainer) {
+            typingContainer.style.minHeight = 'auto';
+            typingContainer.style.padding = '2rem 0';
+        }
+        
         // Show the final typed text immediately since we're skipping the animation
         const typingElement = document.getElementById('typing-text');
         if (typingElement) {
@@ -565,6 +572,13 @@ if (document.readyState === 'loading') {
         const homeTab = document.getElementById('home');
         if (homeTab) {
             homeTab.classList.add('active');
+        }
+        
+        // Adjust typing container for normal layout (not full height)
+        const typingContainer = document.querySelector('.typing-container');
+        if (typingContainer) {
+            typingContainer.style.minHeight = 'auto';
+            typingContainer.style.padding = '2rem 0';
         }
         
         // Show the final typed text immediately since we're skipping the animation
