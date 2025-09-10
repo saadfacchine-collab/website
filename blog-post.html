@@ -10,51 +10,171 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
+        :root {
+            --accent-teal: #2d7d7d;
+            --accent-teal-hover: #1f5f5f;
+            --accent-teal-light: #4a9d9d;
+            --text-primary: #2c2c2c;
+            --text-secondary: #666;
+            --text-light: #888;
+            --bg-light: #fafafa;
+            --border-light: #e8e8e8;
+        }
+
         .blog-post-page {
             min-height: 100vh;
-            background: #ffffff;
-            padding-top: 80px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding-top: 0;
+            position: relative;
+        }
+
+        /* Reading Progress Bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-teal), var(--accent-teal-light));
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        /* Hero Section */
+        .blog-hero {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, #1f5f5f 100%);
+            color: white;
+            padding: 4rem 0 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .blog-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .blog-post-date {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .blog-post-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .blog-post-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
         }
         
         .blog-post-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .blog-post-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .blog-post-date {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 1rem;
-        }
-        
-        .blog-post-title {
-            font-family: 'Crimson Text', serif;
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #2c2c2c;
-            margin-bottom: 1.5rem;
-            line-height: 1.3;
+            padding: 3rem 2rem;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            margin-top: -2rem;
+            position: relative;
+            z-index: 3;
         }
         
         .blog-post-content {
             font-family: 'Source Sans Pro', sans-serif;
             line-height: 1.8;
-            color: #444;
+            color: var(--text-primary);
             font-size: 1.1rem;
             margin-bottom: 3rem;
         }
         
         .blog-post-content p {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
             text-align: justify;
+            position: relative;
+        }
+
+        /* Drop cap for first paragraph */
+        .blog-post-content p:first-of-type::first-letter {
+            float: left;
+            font-size: 4rem;
+            line-height: 3rem;
+            padding-right: 8px;
+            padding-top: 4px;
+            color: var(--accent-teal);
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+        }
+
+        /* Special styling for short paragraphs */
+        .blog-post-content p:has-text("But the itch stayed."),
+        .blog-post-content p:has-text("Now that's a story.") {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--accent-teal);
+            text-align: center;
+            margin: 2.5rem 0;
+            font-weight: 500;
+        }
+
+        /* Modern quote styling for impactful lines */
+        .blog-post-content p:nth-of-type(4),
+        .blog-post-content p:nth-of-type(12),
+        .blog-post-content p:nth-of-type(18) {
+            position: relative;
+            padding: 2rem 2rem 2rem 3rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--accent-teal);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .blog-post-content p:nth-of-type(4)::before,
+        .blog-post-content p:nth-of-type(12)::before,
+        .blog-post-content p:nth-of-type(18)::before {
+            content: '"';
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            font-size: 4rem;
+            color: var(--accent-teal);
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+            opacity: 0.3;
         }
         
         .blog-post-content p:last-child {
@@ -63,9 +183,19 @@
         
         .blog-signature {
             font-style: italic;
-            color: #666;
-            margin-top: 2rem !important;
+            color: var(--accent-teal);
+            margin-top: 3rem !important;
             text-align: right;
+            font-size: 1.2rem;
+            font-weight: 500;
+            border-top: 2px solid var(--accent-teal);
+            padding-top: 1rem;
+            position: relative;
+        }
+
+        .blog-signature::before {
+            content: '✍️';
+            margin-right: 0.5rem;
         }
         
         .back-to-blog {
@@ -75,12 +205,20 @@
             color: var(--accent-teal);
             text-decoration: none;
             font-weight: 600;
-            margin-bottom: 2rem;
-            transition: color 0.3s ease;
+            margin-top: 3rem;
+            padding: 1rem 2rem;
+            border: 2px solid var(--accent-teal);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .back-to-blog:hover {
-            color: var(--accent-teal-hover);
+            color: white;
+            background: var(--accent-teal);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(45, 125, 125, 0.3);
         }
         
         .blog-post-actions {
@@ -101,28 +239,53 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.75rem 1.5rem;
-            border: 1px solid #ddd;
+            border: 2px solid var(--border-light);
             border-radius: 25px;
             background: white;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 0.9rem;
             font-weight: 500;
             text-decoration: none;
             color: inherit;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
         }
         
         .action-btn:hover {
             background: var(--accent-teal);
             color: white;
             border-color: var(--accent-teal);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(45, 125, 125, 0.3);
         }
         
         .action-btn.liked {
-            background: #ff6b6b;
+            background: linear-gradient(135deg, #ff6b6b, #ff5252);
             color: white;
             border-color: #ff6b6b;
+            box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         
         .action-icon {
@@ -222,36 +385,76 @@
         }
         
         @media (max-width: 768px) {
+            .blog-hero {
+                padding: 3rem 0 2rem;
+            }
+
+            .blog-hero-content {
+                padding: 0 1rem;
+            }
+            
             .blog-post-container {
-                padding: 1rem;
+                padding: 2rem 1rem;
+                margin-top: -1rem;
             }
             
             .blog-post-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+
+            .blog-post-subtitle {
+                font-size: 1.1rem;
             }
             
             .blog-post-content {
                 font-size: 1rem;
             }
+
+            .blog-post-content p:first-of-type::first-letter {
+                font-size: 3rem;
+                line-height: 2.5rem;
+            }
+
+            .blog-post-content p:nth-of-type(4),
+            .blog-post-content p:nth-of-type(12),
+            .blog-post-content p:nth-of-type(18) {
+                padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+            }
+
+            .blog-post-content p:nth-of-type(4)::before,
+            .blog-post-content p:nth-of-type(12)::before,
+            .blog-post-content p:nth-of-type(18)::before {
+                font-size: 3rem;
+                left: 0.5rem;
+            }
             
             .action-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 0.75rem;
+            }
+
+            .action-btn {
+                width: 100%;
+                max-width: 200px;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
+    <div class="reading-progress" id="reading-progress"></div>
+    
     <div class="blog-post-page">
-        <div class="blog-post-container">
-            <a href="index.html#blog" class="back-to-blog" onclick="markReturningFromBlog()">
-                ← Back to Blog
-            </a>
-            
-            <div class="blog-post-header">
+        <div class="blog-hero">
+            <div class="blog-hero-content">
                 <div class="blog-post-date">09/12/25</div>
                 <h1 class="blog-post-title">Babies Can't Read</h1>
+                <p class="blog-post-subtitle">Five years ago, I started writing a novel from a baby's perspective. Here's the story of how The Model Muslim evolved from a glittering mess into something that actually sounds like me.</p>
             </div>
+        </div>
+        
+        <div class="blog-post-container">
             
             <div class="blog-post-content">
                 <p>Five years ago, I sat on a couch in a brand new house I'd just bought with my then‑boyfriend, opened my laptop, and wrote a scene.</p>
@@ -328,6 +531,12 @@
                     </div>
                 </div>
             </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="index.html" class="back-to-blog" onclick="markReturningFromBlog(); navigateToBlog(); return false;">
+                    ← Back to Blog
+                </a>
+            </div>
         </div>
     </div>
 
@@ -335,6 +544,12 @@
         // Mark that user is returning from blog to prevent cold open
         function markReturningFromBlog() {
             sessionStorage.setItem('returningFromBlog', 'true');
+        }
+
+        // Navigate to blog tab smoothly
+        function navigateToBlog() {
+            sessionStorage.setItem('navigateToBlog', 'true');
+            window.location.href = 'index.html';
         }
         
         // Blog post data storage (in a real app, this would be server-side)
@@ -461,10 +676,35 @@
             }
         }
 
+        // Reading progress functionality
+        function updateReadingProgress() {
+            const progressBar = document.getElementById('reading-progress');
+            const content = document.querySelector('.blog-post-content');
+            
+            if (!progressBar || !content) return;
+            
+            const contentTop = content.offsetTop;
+            const contentHeight = content.offsetHeight;
+            const windowHeight = window.innerHeight;
+            const scrollTop = window.pageYOffset;
+            
+            const progress = Math.min(
+                Math.max((scrollTop - contentTop + windowHeight) / contentHeight, 0),
+                1
+            );
+            
+            progressBar.style.width = (progress * 100) + '%';
+        }
+
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', () => {
             updateActionButtons();
             initializeActionButtons();
+            
+            // Set up reading progress
+            window.addEventListener('scroll', updateReadingProgress);
+            window.addEventListener('resize', updateReadingProgress);
+            updateReadingProgress(); // Initial call
         });
     </script>
 </body>
