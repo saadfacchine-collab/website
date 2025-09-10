@@ -421,32 +421,89 @@ function initializeSmoothScrolling() {
 
 
 
+// Check if user should see cold open
+function shouldShowColdOpen() {
+    // Check if user came from a blog post or is navigating back
+    const referrer = document.referrer;
+    const currentUrl = window.location.href;
+    
+    // If coming from a blog post, don't show cold open
+    if (referrer && referrer.includes('blog-post.html')) {
+        return false;
+    }
+    
+    // If user clicked "Back to Blog" from a blog post, don't show cold open
+    const returningFromBlog = sessionStorage.getItem('returningFromBlog');
+    if (returningFromBlog === 'true') {
+        // Clear the flag after checking
+        sessionStorage.removeItem('returningFromBlog');
+        return false;
+    }
+    
+    // If navigating back (browser back button), don't show cold open
+    if (performance.navigation && performance.navigation.type === 2) {
+        return false;
+    }
+    
+    // Check session storage to see if user has already seen intro in this session
+    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
+    if (hasSeenIntro === 'true') {
+        return false;
+    }
+    
+    // Show cold open for first-time visitors or direct access to main domain
+    return true;
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing...'); // Debug log
-    // Set up cold open - hide header initially
-    const header = document.querySelector('.header');
-    header.style.opacity = '0';
-    header.style.transform = 'translateY(-100%)';
-    header.style.transition = 'opacity 1s ease, transform 1s ease';
     
-    // Adjust main content margin for cold open
-    const mainContent = document.querySelector('.main-content');
-    mainContent.style.marginTop = '0';
+    const showColdOpen = shouldShowColdOpen();
     
-    // Create and add skip intro button
-    createSkipIntroButton();
+    if (showColdOpen) {
+        // Set up cold open - hide header initially
+        const header = document.querySelector('.header');
+        header.style.opacity = '0';
+        header.style.transform = 'translateY(-100%)';
+        header.style.transition = 'opacity 1s ease, transform 1s ease';
+        
+        // Adjust main content margin for cold open
+        const mainContent = document.querySelector('.main-content');
+        mainContent.style.marginTop = '0';
+        
+        // Create and add skip intro button
+        createSkipIntroButton();
+        
+        // Mark that user has seen intro in this session
+        sessionStorage.setItem('hasSeenIntro', 'true');
+        
+        // Start typing animation on page load with a short delay
+        setTimeout(() => {
+            startTypingAnimation();
+        }, 1000);
+    } else {
+        // Skip cold open - show header immediately
+        const header = document.querySelector('.header');
+        header.style.opacity = '1';
+        header.style.transform = 'translateY(0)';
+        
+        // Adjust main content margin for normal view
+        const mainContent = document.querySelector('.main-content');
+        mainContent.style.marginTop = '80px';
+        
+        // Show home content immediately
+        const homeTab = document.getElementById('home');
+        if (homeTab) {
+            homeTab.classList.add('active');
+        }
+    }
     
     initializeNavigation();
     initializeNewsletterForm();
     initializeContactForm();
     initializeSocialLinks();
     initializeSmoothScrolling();
-    
-    // Start typing animation on page load with a short delay
-    setTimeout(() => {
-        startTypingAnimation();
-    }, 1000);
 });
 
 // Also try to initialize immediately in case DOM is already loaded
@@ -454,12 +511,50 @@ if (document.readyState === 'loading') {
     console.log('DOM still loading...'); // Debug log
 } else {
     console.log('DOM already loaded, initializing immediately...'); // Debug log
+    
+    const showColdOpen = shouldShowColdOpen();
+    
+    if (showColdOpen) {
+        // Set up cold open - hide header initially
+        const header = document.querySelector('.header');
+        header.style.opacity = '0';
+        header.style.transform = 'translateY(-100%)';
+        header.style.transition = 'opacity 1s ease, transform 1s ease';
+        
+        // Adjust main content margin for cold open
+        const mainContent = document.querySelector('.main-content');
+        mainContent.style.marginTop = '0';
+        
+        // Create and add skip intro button
+        createSkipIntroButton();
+        
+        // Mark that user has seen intro in this session
+        sessionStorage.setItem('hasSeenIntro', 'true');
+        
+        // Start typing animation
+        startTypingAnimation();
+    } else {
+        // Skip cold open - show header immediately
+        const header = document.querySelector('.header');
+        header.style.opacity = '1';
+        header.style.transform = 'translateY(0)';
+        
+        // Adjust main content margin for normal view
+        const mainContent = document.querySelector('.main-content');
+        mainContent.style.marginTop = '80px';
+        
+        // Show home content immediately
+        const homeTab = document.getElementById('home');
+        if (homeTab) {
+            homeTab.classList.add('active');
+        }
+    }
+    
     initializeNavigation();
     initializeNewsletterForm();
     initializeContactForm();
     initializeSocialLinks();
     initializeSmoothScrolling();
-    startTypingAnimation();
 }
 
 
@@ -532,3 +627,4 @@ function observeElements() {
 
 // Initialize intersection observer after a short delay
 setTimeout(observeElements, 1000);
+
