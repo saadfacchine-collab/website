@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://saadfacchine.com/sitemap.xml
