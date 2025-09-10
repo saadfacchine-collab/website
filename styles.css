@@ -590,6 +590,11 @@ em strong {
         margin-top: 120px;
     }
     
+    .typing-container {
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+    }
+    
     .typing-text {
         font-size: 1.4rem;
     }
