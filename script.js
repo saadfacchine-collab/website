@@ -498,16 +498,22 @@ document.addEventListener('DOMContentLoaded', () => {
             homeTab.classList.add('active');
         }
         
+        // Show the final typed text immediately since we're skipping the animation
+        const typingElement = document.getElementById('typing-text');
+        if (typingElement) {
+            typingElement.innerHTML = novelExcerpt[0].text;
+        }
+        
+        // Hide the cursor since we're not animating
+        const cursor = document.getElementById('cursor');
+        if (cursor) {
+            cursor.style.display = 'none';
+        }
+        
         // Show the post-typing content immediately since we're skipping the animation
         const postTypingContent = document.getElementById('post-typing-content');
         if (postTypingContent) {
             postTypingContent.style.display = 'block';
-        }
-        
-        // Hide the typing container since we're not showing the animation
-        const typingContainer = document.querySelector('.typing-container');
-        if (typingContainer) {
-            typingContainer.style.display = 'none';
         }
     }
     
@@ -561,16 +567,22 @@ if (document.readyState === 'loading') {
             homeTab.classList.add('active');
         }
         
+        // Show the final typed text immediately since we're skipping the animation
+        const typingElement = document.getElementById('typing-text');
+        if (typingElement) {
+            typingElement.innerHTML = novelExcerpt[0].text;
+        }
+        
+        // Hide the cursor since we're not animating
+        const cursor = document.getElementById('cursor');
+        if (cursor) {
+            cursor.style.display = 'none';
+        }
+        
         // Show the post-typing content immediately since we're skipping the animation
         const postTypingContent = document.getElementById('post-typing-content');
         if (postTypingContent) {
             postTypingContent.style.display = 'block';
-        }
-        
-        // Hide the typing container since we're not showing the animation
-        const typingContainer = document.querySelector('.typing-container');
-        if (typingContainer) {
-            typingContainer.style.display = 'none';
         }
     }
     
