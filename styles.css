@@ -40,6 +40,29 @@ h3 {
     margin-bottom: 1rem;
 }
 
+/* The Model Muslim title styling */
+.model-muslim-title {
+    color: #2d7d7d !important;
+    font-weight: 700 !important;
+    font-style: italic !important;
+}
+
+em.model-muslim-title {
+    color: #2d7d7d !important;
+    font-weight: 700 !important;
+    font-style: italic !important;
+}
+
+/* Inshallah word styling in cold open */
+em strong {
+    color: #2d7d7d !important;
+}
+
+/* Specifically target Inshallah in typing animation */
+.typing-text em strong {
+    color: #2d7d7d !important;
+}
+
 /* Header and Navigation */
 .header {
     position: fixed;
