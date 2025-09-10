@@ -440,6 +440,11 @@ function shouldShowColdOpen() {
         return false;
     }
     
+    // Check if URL has #blog hash to navigate to blog tab
+    if (window.location.hash === '#blog') {
+        return false;
+    }
+    
     // If navigating back (browser back button), don't show cold open
     if (performance.navigation && performance.navigation.type === 2) {
         return false;
@@ -529,6 +534,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeContactForm();
     initializeSocialLinks();
     initializeSmoothScrolling();
+    
+    // Check if we need to navigate to a specific tab based on URL hash
+    if (window.location.hash === '#blog') {
+        // Switch to blog tab
+        switchTab('blog');
+    }
 });
 
 // Also try to initialize immediately in case DOM is already loaded
@@ -605,6 +616,12 @@ if (document.readyState === 'loading') {
     initializeContactForm();
     initializeSocialLinks();
     initializeSmoothScrolling();
+    
+    // Check if we need to navigate to a specific tab based on URL hash
+    if (window.location.hash === '#blog') {
+        // Switch to blog tab
+        switchTab('blog');
+    }
 }
 
 
