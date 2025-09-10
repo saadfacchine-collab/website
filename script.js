@@ -497,6 +497,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (homeTab) {
             homeTab.classList.add('active');
         }
+        
+        // Show the post-typing content immediately since we're skipping the animation
+        const postTypingContent = document.getElementById('post-typing-content');
+        if (postTypingContent) {
+            postTypingContent.style.display = 'block';
+        }
+        
+        // Hide the typing container since we're not showing the animation
+        const typingContainer = document.querySelector('.typing-container');
+        if (typingContainer) {
+            typingContainer.style.display = 'none';
+        }
     }
     
     initializeNavigation();
@@ -547,6 +559,18 @@ if (document.readyState === 'loading') {
         const homeTab = document.getElementById('home');
         if (homeTab) {
             homeTab.classList.add('active');
+        }
+        
+        // Show the post-typing content immediately since we're skipping the animation
+        const postTypingContent = document.getElementById('post-typing-content');
+        if (postTypingContent) {
+            postTypingContent.style.display = 'block';
+        }
+        
+        // Hide the typing container since we're not showing the animation
+        const typingContainer = document.querySelector('.typing-container');
+        if (typingContainer) {
+            typingContainer.style.display = 'none';
         }
     }
     
