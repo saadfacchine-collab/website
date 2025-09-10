@@ -537,8 +537,36 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Check if we need to navigate to a specific tab based on URL hash
     if (window.location.hash === '#blog') {
-        // Switch to blog tab
-        switchTab('blog');
+        console.log('Detected #blog hash, switching to blog tab');
+        // Switch to blog tab after a short delay to ensure navigation is initialized
+        setTimeout(() => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            console.log('Found nav links:', navLinks.length, 'tab contents:', tabContents.length);
+            
+            // Remove active class from all nav links and tab contents
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            tabContents.forEach(tab => tab.classList.remove('active'));
+            
+            // Add active class to blog nav link
+            const blogNavLink = document.querySelector('.nav-link[data-tab="blog"]');
+            if (blogNavLink) {
+                blogNavLink.classList.add('active');
+                console.log('Activated blog nav link');
+            } else {
+                console.log('Blog nav link not found');
+            }
+            
+            // Show blog tab content
+            const blogTab = document.getElementById('blog');
+            if (blogTab) {
+                blogTab.classList.add('active');
+                console.log('Activated blog tab content');
+            } else {
+                console.log('Blog tab content not found');
+            }
+        }, 100);
     }
 });
 
@@ -619,8 +647,36 @@ if (document.readyState === 'loading') {
     
     // Check if we need to navigate to a specific tab based on URL hash
     if (window.location.hash === '#blog') {
-        // Switch to blog tab
-        switchTab('blog');
+        console.log('Detected #blog hash, switching to blog tab');
+        // Switch to blog tab after a short delay to ensure navigation is initialized
+        setTimeout(() => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            console.log('Found nav links:', navLinks.length, 'tab contents:', tabContents.length);
+            
+            // Remove active class from all nav links and tab contents
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            tabContents.forEach(tab => tab.classList.remove('active'));
+            
+            // Add active class to blog nav link
+            const blogNavLink = document.querySelector('.nav-link[data-tab="blog"]');
+            if (blogNavLink) {
+                blogNavLink.classList.add('active');
+                console.log('Activated blog nav link');
+            } else {
+                console.log('Blog nav link not found');
+            }
+            
+            // Show blog tab content
+            const blogTab = document.getElementById('blog');
+            if (blogTab) {
+                blogTab.classList.add('active');
+                console.log('Activated blog tab content');
+            } else {
+                console.log('Blog tab content not found');
+            }
+        }, 100);
     }
 }
 
