@@ -1,14 +1,15 @@
-// Excerpt from The Model Muslim
-const novelExcerpt = [
-    { type: 'single', text: 'I couldn\'t do it. But my Awaz could hold what I could not name.\nSo I bent inward, bitter as a curse, and whispered: Inshallah.' }
+// Novel passages for cycling
+const novelPassages = [
+    'I couldn\'t do it. But my Awaz could hold what I could not name.\nSo I bent inward, bitter as a curse, and whispered: Inshallah.',
+    'Forty years I\'ve spent trying to make your life better. Yet here you are. Still circling chai shops, still ghosting gallery walls. Still alone. Still broken.',
+    'My camera would circle him, catching the wind in his shirt, the slow grin breaking across his face as his lover came into frame. But what if I came to him instead?',
+    'As the first light of dawn stretched across the sky, the shadows peeled back like a lifting veil, and there it was: the city of Lebanon, shaped like the Kaaba but impossibly scaled.'
 ];
 
-// Typing animation variables
-let currentSegment = 0;
-let currentChar = 0;
+// Simple passage cycling variables
+let currentPassageIndex = 0;
 let isTyping = false;
-let typingSpeed = 35; // milliseconds per character (smoother)
-let pauseBetweenSegments = 600; // pause between character and Awaz segments (shorter)
+let typingSpeed = 50; // milliseconds per character
 
 // Tab navigation
 function initializeNavigation() {
@@ -56,103 +57,216 @@ function initializeNavigation() {
     }
 }
 
-// Typing animation
-function startTypingAnimation() {
+// Cold open typing animation (only for first passage)
+function startColdOpenTyping() {
     if (isTyping) return;
-    
     isTyping = true;
     
     const typingElement = document.getElementById('typing-text');
     const cursor = document.getElementById('cursor');
     
-    if (!typingElement || !cursor) {
-        console.error('Typing elements not found');
+    if (!typingElement) {
+        console.error('Typing element not found');
+        isTyping = false;
         return;
     }
     
-    // Type the novel excerpt
-    const fullText = novelExcerpt[0].text;
-    let currentIndex = 0;
-    
-    typingElement.innerHTML = '';
-    cursor.style.display = 'none'; // Hide separate cursor, use inline cursor
-    
-    function typeChar() {
-        if (currentIndex < fullText.length) {
-            const textSoFar = fullText.substring(0, currentIndex + 1);
-            const nextPart = fullText.substring(currentIndex, currentIndex + 9);
-            const currentChar = fullText[currentIndex];
-            
-            // Check if we're about to type "Inshallah" - add dramatic pause
-            if (nextPart === 'Inshallah' && currentIndex > 0) {
-                // Add dramatic pause before Inshallah
-                setTimeout(() => {
-                    continueWithInshallah();
-                }, 800); // Shorter dramatic pause for smoother flow
-                return;
-            }
-            
-            // Add text with cursor, converting \n to <br>
-            const formattedText = textSoFar.replace(/\n/g, '<br>');
-            typingElement.innerHTML = formattedText + '<span class="cursor">|</span>';
-            
-            currentIndex++;
-            
-            // Check for sentence endings and add longer pauses
-            let nextDelay = typingSpeed;
-            if (currentChar === '.' || currentChar === '?' || currentChar === '!') {
-                nextDelay = typingSpeed * 12; // Longer pause after sentences for more drama
-            } else if (currentChar === '\n') {
-                nextDelay = typingSpeed * 10; // Pause after line breaks for dramatic effect
-            }
-            
-            setTimeout(typeChar, nextDelay);
-        } else {
-            // Animation complete - remove inline cursor
-            typingElement.textContent = fullText.substring(0, currentIndex);
-            isTyping = false;
-            
-            setTimeout(() => {
-                revealPostTypingContent();
-            }, 1500);
-        }
+    // Hide cursor
+    if (cursor) {
+        cursor.style.display = 'none';
     }
     
-    function continueWithInshallah() {
-        // Type "Inshallah" character by character in italics
-        const beforeInshallah = fullText.substring(0, currentIndex);
-        const inshallahWord = 'Inshallah';
-        let inshallahIndex = 0;
-        
-        function typeInshallahChar() {
-            if (inshallahIndex < inshallahWord.length) {
-                const inshallahSoFar = inshallahWord.substring(0, inshallahIndex + 1);
-                const afterInshallah = fullText.substring(currentIndex + inshallahWord.length);
-                
-                // Build the HTML with italicized and bold Inshallah as it's being typed
-                const formattedBefore = beforeInshallah.replace(/\n/g, '<br>');
-                typingElement.innerHTML = formattedBefore + '<em><strong>' + inshallahSoFar + '</strong></em><span class="cursor">|</span>';
-                
-                inshallahIndex++;
-                currentIndex++;
-                setTimeout(typeInshallahChar, typingSpeed * 1.5); // Smoother typing for Inshallah
+    // Clear text
+    typingElement.innerHTML = '';
+    
+    const passage = novelPassages[0]; // First passage
+    let currentIndex = 0;
+    
+    function typeChar() {
+        if (currentIndex < passage.length) {
+            const char = passage[currentIndex];
+            
+            if (char === '\n') {
+                typingElement.innerHTML += '<br>';
             } else {
-                // Animation complete after Inshallah - remove inline cursor
-                const formattedBefore = beforeInshallah.replace(/\n/g, '<br>');
-                typingElement.innerHTML = formattedBefore + '<em><strong>' + inshallahWord + '</strong></em>';
-                isTyping = false;
-                
-                setTimeout(() => {
-                    revealPostTypingContent();
-                }, 800); // Smoother pause after Inshallah
+                typingElement.innerHTML += char;
             }
+            
+            currentIndex++;
+            setTimeout(typeChar, typingSpeed);
+        } else {
+            // Typing complete
+            isTyping = false;
+            
+            // Special formatting for Inshallah
+            if (passage.includes('Inshallah')) {
+                typingElement.innerHTML = passage.replace('Inshallah', '<em><strong>Inshallah</strong></em>').replace(/\n/g, '<br>');
+            } else {
+                typingElement.innerHTML = passage.replace(/\n/g, '<br>');
+            }
+            
+            // After cold open completes, start cycling
+            setTimeout(() => {
+                revealPostTypingContent();
+                // Start cycling after cold open completes and transition is done
+                setTimeout(() => {
+                    startPassageCycling();
+                }, 3000); // Wait for transition to complete
+            }, 3000);
         }
-        
-        typeInshallahChar();
     }
     
     typeChar();
 }
+
+// Simple passage cycling with dots (for post-cold open)
+function startPassageCycling() {
+    const typingElement = document.getElementById('typing-text');
+    const cursor = document.getElementById('cursor');
+    
+    if (!typingElement) {
+        console.error('Typing element not found');
+        return;
+    }
+    
+    // Hide cursor
+    if (cursor) {
+        cursor.style.display = 'none';
+    }
+    
+    // Create sliding container
+    createSlidingContainer();
+    
+    // Create navigation dots
+    createNavigationDots();
+    
+    // Start from second passage (index 1) since first was shown in cold open
+    currentPassageIndex = 1;
+    showPassageWithSlide(currentPassageIndex);
+    
+    // Start cycling
+    setInterval(() => {
+        currentPassageIndex = (currentPassageIndex + 1) % novelPassages.length;
+        showPassageWithSlide(currentPassageIndex);
+    }, 8000); // Change every 8 seconds
+}
+
+// Create sliding container
+function createSlidingContainer() {
+    const typingElement = document.getElementById('typing-text');
+    if (!typingElement) return;
+    
+    // Create slider container
+    const slider = document.createElement('div');
+    slider.className = 'passage-slider';
+    
+    // Create slides for each passage
+    novelPassages.forEach((passage, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'passage-slide';
+        slide.dataset.index = index;
+        
+        // Special formatting for Inshallah
+        if (passage.includes('Inshallah')) {
+            slide.innerHTML = passage.replace('Inshallah', '<em><strong>Inshallah</strong></em>').replace(/\n/g, '<br>');
+        } else {
+            slide.innerHTML = passage.replace(/\n/g, '<br>');
+        }
+        
+        slider.appendChild(slide);
+    });
+    
+    // Replace typing element content with slider
+    typingElement.innerHTML = '';
+    typingElement.appendChild(slider);
+}
+
+// Show a specific passage with slide effect
+function showPassageWithSlide(index) {
+    const slides = document.querySelectorAll('.passage-slide');
+    if (!slides.length) return;
+    
+    // Find current active slide
+    const currentActive = document.querySelector('.passage-slide.active');
+    
+    // Remove active class from all slides
+    slides.forEach(slide => {
+        slide.classList.remove('active', 'prev');
+    });
+    
+    // Mark previous slide as prev (will slide out left)
+    if (currentActive) {
+        currentActive.classList.add('prev');
+    }
+    
+    // Add active class to new slide (will slide in from right)
+    if (slides[index]) {
+        slides[index].classList.add('active');
+    }
+    
+    // Update active dot
+    updateActiveDot(index);
+}
+
+
+// Show a specific passage (legacy function for cold open)
+function showPassage(index) {
+    const typingElement = document.getElementById('typing-text');
+    if (!typingElement) return;
+    
+    const passage = novelPassages[index];
+    
+    // Special formatting for Inshallah
+    if (passage.includes('Inshallah')) {
+        typingElement.innerHTML = passage.replace('Inshallah', '<em><strong>Inshallah</strong></em>').replace(/\n/g, '<br>');
+    } else {
+        typingElement.innerHTML = passage.replace(/\n/g, '<br>');
+    }
+    
+    // Update active dot
+    updateActiveDot(index);
+}
+
+// Create navigation dots
+function createNavigationDots() {
+    const typingContainer = document.querySelector('.typing-container');
+    if (!typingContainer) return;
+    
+    // Create dots container
+    const dotsContainer = document.createElement('div');
+    dotsContainer.className = 'passage-dots';
+    
+    // Create dots
+    for (let i = 0; i < novelPassages.length; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'passage-dot';
+        dot.dataset.index = i;
+        
+        // Add click functionality
+        dot.addEventListener('click', () => {
+            currentPassageIndex = i;
+            showPassageWithSlide(currentPassageIndex);
+        });
+        
+        dotsContainer.appendChild(dot);
+    }
+    
+    // Add to typing container
+    typingContainer.appendChild(dotsContainer);
+}
+
+// Update active dot
+function updateActiveDot(index) {
+    const dots = document.querySelectorAll('.passage-dot');
+    dots.forEach((dot, i) => {
+        if (i === index) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
 
 // Function to skip the typing animation
 function skipIntro() {
@@ -167,37 +281,18 @@ function skipIntro() {
     
     typingElement.innerHTML = '';
     
-    // Add all segments instantly
-    novelExcerpt.forEach((segment, index) => {
-        const segmentElement = document.createElement('span');
-        if (segment.type === 'awaz') {
-            segmentElement.className = 'awaz-dialogue';
-        } else if (segment.type === 'single') {
-            segmentElement.className = 'single';
-        } else {
-            segmentElement.className = 'character-dialogue';
-        }
-        
-        // Handle "Inshallah" formatting
-        if (segment.text.includes('Inshallah')) {
-            segmentElement.innerHTML = segment.text.replace('Inshallah', '<em><strong>Inshallah</strong></em>');
-        } else {
-            segmentElement.textContent = segment.text;
-        }
-        
-        if (index > 0) {
-            typingElement.appendChild(document.createElement('br'));
-            typingElement.appendChild(document.createElement('br'));
-        }
-        
-        typingElement.appendChild(segmentElement);
-    });
+    // Show the first passage instantly
+    typingElement.innerHTML = novelPassages[0].replace(/\n/g, '<br>');
     
     cursor.style.display = 'none';
     
     // Reveal content immediately
     setTimeout(() => {
         revealPostTypingContent();
+        // Start cycling after skip and transition
+        setTimeout(() => {
+            startPassageCycling();
+        }, 3000);
     }, 500);
 }
 
@@ -320,27 +415,19 @@ function initializeDynamicText() {
         setInterval(glitchEffect, 2000); // Glitch every 2 seconds
     }, 1000); // Wait 1 second before starting
     
-    // Add hover effect for more frequent glitches
-    dynamicTitle.addEventListener('mouseenter', () => {
-        const hoverGlitch = setInterval(() => {
-            if (Math.random() < 0.4) { // 40% chance on hover
-                const glitchedText = createGlitchText();
-                dynamicTitle.textContent = glitchedText;
-                dynamicTitle.classList.add('glitching');
-                
-                setTimeout(() => {
-                    dynamicTitle.textContent = originalText;
-                    dynamicTitle.classList.remove('glitching');
-                }, 100);
-            }
-        }, 200);
-        
-        dynamicTitle.addEventListener('mouseleave', () => {
-            clearInterval(hoverGlitch);
-            dynamicTitle.textContent = originalText;
-            dynamicTitle.classList.remove('glitching');
-        }, { once: true });
-    });
+    // Continuous glitch effect - no hover needed
+    setInterval(() => {
+        if (Math.random() < 0.4) { // 40% chance every 200ms
+            const glitchedText = createGlitchText();
+            dynamicTitle.textContent = glitchedText;
+            dynamicTitle.classList.add('glitching');
+            
+            setTimeout(() => {
+                dynamicTitle.textContent = originalText;
+                dynamicTitle.classList.remove('glitching');
+            }, 100);
+        }
+    }, 200); // Continuous glitching every 200ms
     
     // Test function - call from browser console: testGlitch()
     window.testGlitch = function() {
@@ -354,6 +441,7 @@ function initializeDynamicText() {
         }, 500);
     };
 }
+
 
 // Newsletter form handling (AJAX submission)
 function initializeNewsletterForm() {
@@ -589,7 +677,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Start typing animation on page load with a short delay
         setTimeout(() => {
-            startTypingAnimation();
+            startColdOpenTyping();
         }, 1000);
     } else {
         // Skip cold open - show header immediately
@@ -617,7 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show the final typed text immediately since we're skipping the animation
         const typingElement = document.getElementById('typing-text');
         if (typingElement) {
-            typingElement.innerHTML = novelExcerpt[0].text;
+            typingElement.innerHTML = novelPassages[0].replace(/\n/g, '<br>');
         }
         
         // Hide the cursor since we're not animating
@@ -625,6 +713,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cursor) {
             cursor.style.display = 'none';
         }
+        
+        // Start cycling after a delay
+        setTimeout(() => {
+            startPassageCycling();
+        }, 3000);
         
         // Show the post-typing content immediately since we're skipping the animation
         const postTypingContent = document.getElementById('post-typing-content');
@@ -681,6 +774,7 @@ document.addEventListener('DOMContentLoaded', () => {
             history.replaceState(null, null, window.location.pathname);
         }
     }
+    
 });
 
 // Also try to initialize immediately in case DOM is already loaded
@@ -736,7 +830,7 @@ if (document.readyState === 'loading') {
         // Show the final typed text immediately since we're skipping the animation
         const typingElement = document.getElementById('typing-text');
         if (typingElement) {
-            typingElement.innerHTML = novelExcerpt[0].text;
+            typingElement.innerHTML = novelPassages[0].replace(/\n/g, '<br>');
         }
         
         // Hide the cursor since we're not animating
@@ -744,6 +838,11 @@ if (document.readyState === 'loading') {
         if (cursor) {
             cursor.style.display = 'none';
         }
+        
+        // Start cycling after a delay
+        setTimeout(() => {
+            startPassageCycling();
+        }, 3000);
         
         // Show the post-typing content immediately since we're skipping the animation
         const postTypingContent = document.getElementById('post-typing-content');
@@ -800,6 +899,7 @@ if (document.readyState === 'loading') {
             history.replaceState(null, null, window.location.pathname);
         }
     }
+    
 }
 
 
