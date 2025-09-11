@@ -53,6 +53,32 @@ em.model-muslim-title {
     font-style: italic !important;
 }
 
+/* Dynamic text effect with Arabic glitch */
+.dynamic-title {
+    transition: all 0.1s ease-in-out;
+    display: inline-block;
+    min-height: 1.2em;
+    font-variant-ligatures: none;
+    text-rendering: optimizeSpeed;
+}
+
+.dynamic-title.glitching {
+    animation: micro-glitch 0.1s ease-in-out;
+}
+
+@keyframes micro-glitch {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-1px);
+    }
+    75% {
+        transform: translateX(1px);
+    }
+}
+
+
 /* Inshallah word styling in cold open */
 em strong {
     color: #2d7d7d !important;

@@ -254,6 +254,107 @@ function revealPostTypingContent() {
     }, 200); // Small delay after typing completes
 }
 
+// Arabic character glitch effect for THE MODEL MUSLIM title
+function initializeDynamicText() {
+    const dynamicTitle = document.getElementById('dynamic-title');
+    if (!dynamicTitle) return;
+    
+    const originalText = "THE MODEL MUSLIM";
+    const arabicChars = "أبتثجحخدذرزسشصضطظعغفقكلمنهوي";
+    const glitchChars = "!@#$%^&*()_+-=[]{}|;:,.<>?/~`";
+    
+    // Character mapping for more realistic glitches
+    const charMap = {
+        'T': ['ت', 'ط', 'ث'],
+        'H': ['ه', 'ح', 'خ'],
+        'E': ['ع', 'أ', 'إ'],
+        'M': ['م', 'م'],
+        'O': ['و', 'أ', 'ع'],
+        'D': ['د', 'ض', 'ذ'],
+        'L': ['ل', 'ل'],
+        'U': ['و', 'أ', 'ع'],
+        'S': ['س', 'ص', 'ش'],
+        'I': ['ي', 'إ', 'أ'],
+        ' ': [' ', ' ', ' ']
+    };
+    
+    function createGlitchText() {
+        let glitchedText = '';
+        for (let i = 0; i < originalText.length; i++) {
+            const char = originalText[i];
+            if (Math.random() < 0.4) { // 40% chance each character glitches for testing
+                if (charMap[char]) {
+                    // Use Arabic character mapping
+                    const arabicOptions = charMap[char];
+                    glitchedText += arabicOptions[Math.floor(Math.random() * arabicOptions.length)];
+                } else if (Math.random() < 0.5) {
+                    // Use random Arabic character
+                    glitchedText += arabicChars[Math.floor(Math.random() * arabicChars.length)];
+                } else {
+                    // Use random glitch character
+                    glitchedText += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+                }
+            } else {
+                glitchedText += char;
+            }
+        }
+        return glitchedText;
+    }
+    
+    function glitchEffect() {
+        if (Math.random() < 0.7) { // 70% chance of glitch for testing
+            const glitchedText = createGlitchText();
+            dynamicTitle.textContent = glitchedText;
+            dynamicTitle.classList.add('glitching');
+            
+            // Reset after short delay
+            setTimeout(() => {
+                dynamicTitle.textContent = originalText;
+                dynamicTitle.classList.remove('glitching');
+            }, 150);
+        }
+    }
+    
+    // Start the glitch effect immediately for testing
+    setTimeout(() => {
+        setInterval(glitchEffect, 2000); // Glitch every 2 seconds
+    }, 1000); // Wait 1 second before starting
+    
+    // Add hover effect for more frequent glitches
+    dynamicTitle.addEventListener('mouseenter', () => {
+        const hoverGlitch = setInterval(() => {
+            if (Math.random() < 0.4) { // 40% chance on hover
+                const glitchedText = createGlitchText();
+                dynamicTitle.textContent = glitchedText;
+                dynamicTitle.classList.add('glitching');
+                
+                setTimeout(() => {
+                    dynamicTitle.textContent = originalText;
+                    dynamicTitle.classList.remove('glitching');
+                }, 100);
+            }
+        }, 200);
+        
+        dynamicTitle.addEventListener('mouseleave', () => {
+            clearInterval(hoverGlitch);
+            dynamicTitle.textContent = originalText;
+            dynamicTitle.classList.remove('glitching');
+        }, { once: true });
+    });
+    
+    // Test function - call from browser console: testGlitch()
+    window.testGlitch = function() {
+        const glitchedText = createGlitchText();
+        dynamicTitle.textContent = glitchedText;
+        dynamicTitle.classList.add('glitching');
+        
+        setTimeout(() => {
+            dynamicTitle.textContent = originalText;
+            dynamicTitle.classList.remove('glitching');
+        }, 500);
+    };
+}
+
 // Newsletter form handling (AJAX submission)
 function initializeNewsletterForm() {
     const newsletterForm = document.querySelector('.newsletter-form');
@@ -537,6 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeContactForm();
     initializeSocialLinks();
     initializeSmoothScrolling();
+    initializeDynamicText();
     
     // Check if we need to navigate to blog tab (from blog post or hash)
     const shouldNavigateToBlog = window.location.hash === '#blog' || sessionStorage.getItem('navigateToBlog') === 'true';
@@ -655,6 +757,7 @@ if (document.readyState === 'loading') {
     initializeContactForm();
     initializeSocialLinks();
     initializeSmoothScrolling();
+    initializeDynamicText();
     
     // Check if we need to navigate to blog tab (from blog post or hash)
     const shouldNavigateToBlog = window.location.hash === '#blog' || sessionStorage.getItem('navigateToBlog') === 'true';
