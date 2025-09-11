@@ -9,7 +9,7 @@ const novelPassages = [
 // Simple passage cycling variables
 let currentPassageIndex = 0;
 let isTyping = false;
-let typingSpeed = 50; // milliseconds per character
+let typingSpeed = 35; // milliseconds per character (smoother) (faster)
 
 // Tab navigation
 function initializeNavigation() {
@@ -93,7 +93,28 @@ function startColdOpenTyping() {
             }
             
             currentIndex++;
-            setTimeout(typeChar, typingSpeed);
+            
+            // Add dramatic pauses for sentence endings
+            let nextDelay = typingSpeed;
+            if (char === '.' || char === '!' || char === '?') {
+                nextDelay = typingSpeed * 15; // Dramatic pause after sentences
+            } else if (char === ',') {
+                nextDelay = typingSpeed * 5; // Shorter pause after commas
+            } else if (char === '\n') {
+                nextDelay = typingSpeed * 10; // Pause after line breaks
+            }
+            
+            // Check if we're about to type "Inshallah" - add dramatic pause
+            const nextPart = passage.substring(currentIndex, currentIndex + 9);
+            if (nextPart === 'Inshallah' && currentIndex > 0) {
+                // Add dramatic pause before Inshallah
+                setTimeout(() => {
+                    continueWithInshallah();
+                }, 800); // Shorter dramatic pause for smoother flow
+                return;
+            }
+            
+            setTimeout(typeChar, nextDelay);
         } else {
             // Typing complete
             isTyping = false;
@@ -108,15 +129,57 @@ function startColdOpenTyping() {
             // After cold open completes, start cycling
             setTimeout(() => {
                 revealPostTypingContent();
+                // Create navigation dots during transition
+                createNavigationDots();
                 // Start cycling after cold open completes and transition is done
                 setTimeout(() => {
                     startPassageCycling();
-                }, 3000); // Wait for transition to complete
-            }, 3000);
+                }, 2000); // Faster transition
+            }, 1500); // Shorter pause after typing
         }
     }
     
     typeChar();
+    
+    function continueWithInshallah() {
+        // Type "Inshallah" character by character in italics
+        const beforeInshallah = passage.substring(0, currentIndex);
+        const inshallahWord = 'Inshallah';
+        let inshallahIndex = 0;
+        
+        function typeInshallahChar() {
+            if (inshallahIndex < inshallahWord.length) {
+                const inshallahSoFar = inshallahWord.substring(0, inshallahIndex + 1);
+                const afterInshallah = passage.substring(currentIndex + inshallahWord.length);
+                
+                // Build the HTML with italicized and bold Inshallah as it's being typed
+                const formattedBefore = beforeInshallah.replace(/\n/g, '<br>');
+                typingElement.innerHTML = formattedBefore + '<em><strong>' + inshallahSoFar + '</strong></em>' + afterInshallah.replace(/\n/g, '<br>');
+                
+                inshallahIndex++;
+                currentIndex++;
+                setTimeout(typeInshallahChar, typingSpeed * 1.5); // Smoother typing for Inshallah
+            } else {
+                // Animation complete after Inshallah
+                const formattedBefore = beforeInshallah.replace(/\n/g, '<br>');
+                typingElement.innerHTML = formattedBefore + '<em><strong>' + inshallahWord + '</strong></em>';
+                
+                isTyping = false;
+                
+                setTimeout(() => {
+                    revealPostTypingContent();
+                    // Create navigation dots during transition
+                    createNavigationDots();
+                    // Start cycling after cold open completes and transition is done
+                    setTimeout(() => {
+                        startPassageCycling();
+                    }, 2000); // Faster transition
+                }, 800); // Smoother pause after Inshallah
+            }
+        }
+        
+        typeInshallahChar();
+    }
 }
 
 // Simple passage cycling with dots (for post-cold open)
@@ -137,11 +200,8 @@ function startPassageCycling() {
     // Create sliding container
     createSlidingContainer();
     
-    // Create navigation dots
-    createNavigationDots();
-    
-    // Start from second passage (index 1) since first was shown in cold open
-    currentPassageIndex = 1;
+    // Start from first passage (index 0) for smooth transition
+    currentPassageIndex = 0;
     showPassageWithSlide(currentPassageIndex);
     
     // Start cycling
@@ -180,7 +240,7 @@ function createSlidingContainer() {
     typingElement.innerHTML = '';
     typingElement.appendChild(slider);
     
-    // Set first slide as active
+    // Set first slide as active immediately
     const firstSlide = slider.querySelector('.passage-slide');
     if (firstSlide) {
         firstSlide.classList.add('active');
@@ -192,20 +252,12 @@ function showPassageWithSlide(index) {
     const slides = document.querySelectorAll('.passage-slide');
     if (!slides.length) return;
     
-    // Find current active slide
-    const currentActive = document.querySelector('.passage-slide.active');
-    
     // Remove active class from all slides
     slides.forEach(slide => {
-        slide.classList.remove('active', 'prev');
+        slide.classList.remove('active');
     });
     
-    // Mark previous slide as prev (will slide out left)
-    if (currentActive) {
-        currentActive.classList.add('prev');
-    }
-    
-    // Add active class to new slide (will slide in from right)
+    // Add active class to new slide
     if (slides[index]) {
         slides[index].classList.add('active');
     }
@@ -259,6 +311,11 @@ function createNavigationDots() {
     
     // Add to typing container
     typingContainer.appendChild(dotsContainer);
+    
+    // Make dots visible with a smooth fade-in
+    setTimeout(() => {
+        dotsContainer.classList.add('visible');
+    }, 500);
 }
 
 // Update active dot
@@ -295,11 +352,13 @@ function skipIntro() {
     // Reveal content immediately
     setTimeout(() => {
         revealPostTypingContent();
+        // Create navigation dots during transition
+        createNavigationDots();
         // Start cycling after skip and transition
         setTimeout(() => {
             startPassageCycling();
-        }, 3000);
-    }, 500);
+        }, 2000);
+    }, 300);
 }
 
 // Function to reveal content after typing animation completes
@@ -723,7 +782,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Start cycling after a delay
         setTimeout(() => {
             startPassageCycling();
-        }, 3000);
+        }, 2000);
         
         // Show the post-typing content immediately since we're skipping the animation
         const postTypingContent = document.getElementById('post-typing-content');
@@ -848,7 +907,7 @@ if (document.readyState === 'loading') {
         // Start cycling after a delay
         setTimeout(() => {
             startPassageCycling();
-        }, 3000);
+        }, 2000);
         
         // Show the post-typing content immediately since we're skipping the animation
         const postTypingContent = document.getElementById('post-typing-content');

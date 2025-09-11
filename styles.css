@@ -92,18 +92,12 @@ em.model-muslim-title {
     left: 0;
     width: 100%;
     opacity: 0;
-    transform: translateX(100%);
-    transition: all 1.2s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .passage-slide.active {
     opacity: 1;
-    transform: translateX(0);
     position: relative;
-}
-
-.passage-slide.prev {
-    transform: translateX(-100%);
 }
 
 /* Passage Navigation Dots */
@@ -114,9 +108,14 @@ em.model-muslim-title {
     gap: 8px;
     margin-top: 1rem;
     padding: 0.5rem 0;
-    opacity: 0.6;
+    opacity: 0;
     width: 100%;
     flex-shrink: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.passage-dots.visible {
+    opacity: 0.6;
 }
 
 .passage-dot {
