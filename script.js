@@ -179,6 +179,12 @@ function createSlidingContainer() {
     // Replace typing element content with slider
     typingElement.innerHTML = '';
     typingElement.appendChild(slider);
+    
+    // Set first slide as active
+    const firstSlide = slider.querySelector('.passage-slide');
+    if (firstSlide) {
+        firstSlide.classList.add('active');
+    }
 }
 
 // Show a specific passage with slide effect
