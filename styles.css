@@ -92,10 +92,14 @@ em.model-muslim-title {
 
 .passage-slide {
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 0;
     width: 100%;
-    transform: translateX(100%) translateY(-50%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(100%);
     transition: all 1.2s ease-in-out;
     opacity: 0;
     text-align: center;
@@ -103,11 +107,11 @@ em.model-muslim-title {
 
 .passage-slide.active {
     opacity: 1;
-    transform: translateX(0) translateY(-50%);
+    transform: translateX(0);
 }
 
 .passage-slide.prev {
-    transform: translateX(-100%) translateY(-50%);
+    transform: translateX(-100%);
 }
 
 /* Passage Navigation Dots */
