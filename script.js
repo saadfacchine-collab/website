@@ -9,7 +9,7 @@ const novelPassages = [
 // Simple passage cycling variables
 let currentPassageIndex = 0;
 let isTyping = false;
-let typingSpeed = 35; // milliseconds per character (smoother) (faster)
+let typingSpeed = 28; // milliseconds per character (faster but not too fast) (faster)
 
 // Tab navigation
 function initializeNavigation() {
@@ -97,11 +97,11 @@ function startColdOpenTyping() {
             // Add dramatic pauses for sentence endings
             let nextDelay = typingSpeed;
             if (char === '.' || char === '!' || char === '?') {
-                nextDelay = typingSpeed * 15; // Dramatic pause after sentences
+                nextDelay = typingSpeed * 8; // Shorter pause after sentences for faster flow
             } else if (char === ',') {
-                nextDelay = typingSpeed * 5; // Shorter pause after commas
+                nextDelay = typingSpeed * 3; // Shorter pause after commas
             } else if (char === '\n') {
-                nextDelay = typingSpeed * 10; // Pause after line breaks
+                nextDelay = typingSpeed * 6; // Shorter pause after line breaks
             }
             
             // Check if we're about to type "Inshallah" - add dramatic pause
@@ -110,7 +110,7 @@ function startColdOpenTyping() {
                 // Add dramatic pause before Inshallah
                 setTimeout(() => {
                     continueWithInshallah();
-                }, 800); // Shorter dramatic pause for smoother flow
+                }, 400); // Faster dramatic pause for smoother flow
                 return;
             }
             
@@ -174,7 +174,7 @@ function startColdOpenTyping() {
                     setTimeout(() => {
                         startPassageCycling();
                     }, 2000); // Faster transition
-                }, 800); // Smoother pause after Inshallah
+                }, 400); // Faster pause after Inshallah
             }
         }
         
