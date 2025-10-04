@@ -521,7 +521,7 @@ function initializeNewsletterForm() {
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', function(e) {
             console.log('Form submitted!'); // Debug log
-            // Let Netlify handle the form submission
+            e.preventDefault(); // Prevent default form submission
             
             const emailInput = newsletterForm.querySelector('.email-input');
             const submitBtn = newsletterForm.querySelector('.subscribe-btn');
@@ -531,8 +531,80 @@ function initializeNewsletterForm() {
             submitBtn.textContent = 'Subscribing...';
             submitBtn.disabled = true;
             
-            // Netlify will handle the form submission
-            // Show loading state while form submits
+            // Get form data and convert to URL-encoded format
+            const formData = new FormData(newsletterForm);
+            const urlEncodedData = new URLSearchParams(formData).toString();
+            
+            // Submit via AJAX
+            console.log('Submitting form data:', urlEncodedData); // Debug log
+            fetch('/.netlify/functions/convertkit-webhook', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: urlEncodedData
+            })
+            .then(response => {
+                console.log('Response status:', response.status); // Debug log
+                console.log('Response headers:', response.headers); // Debug log
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data); // Debug log
+                if (data.success) {
+                    // Show success message
+                    emailInput.style.display = 'none';
+                    submitBtn.style.display = 'none';
+                    
+                    const successMessage = document.createElement('div');
+                    successMessage.innerHTML = '<p style="color: var(--accent-teal); font-weight: 600; margin: 0;">✓ Thank you for subscribing!</p>';
+                    successMessage.style.textAlign = 'center';
+                    successMessage.style.padding = '1rem';
+                    
+                    newsletterForm.appendChild(successMessage);
+                } else {
+                    // Show error message
+                    submitBtn.textContent = 'Error - Try Again';
+                    submitBtn.disabled = false;
+                    
+                    const errorMessage = document.createElement('div');
+                    errorMessage.innerHTML = '<p style="color: #e74c3c; font-weight: 600; margin: 0;">❌ Something went wrong. Please try again.</p>';
+                    errorMessage.style.textAlign = 'center';
+                    errorMessage.style.padding = '1rem';
+                    
+                    newsletterForm.appendChild(errorMessage);
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.textContent = originalBtnText;
+                        submitBtn.disabled = false;
+                        if (errorMessage.parentNode) {
+                            errorMessage.remove();
+                        }
+                    }, 3000);
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                submitBtn.textContent = 'Error - Try Again';
+                submitBtn.disabled = false;
+                
+                const errorMessage = document.createElement('div');
+                errorMessage.innerHTML = `<p style="color: #e74c3c; font-weight: 600; margin: 0;">❌ Error: ${error.message}</p>`;
+                errorMessage.style.textAlign = 'center';
+                errorMessage.style.padding = '1rem';
+                
+                newsletterForm.appendChild(errorMessage);
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
+                    if (errorMessage.parentNode) {
+                        errorMessage.remove();
+                    }
+                }, 3000);
+            });
         });
     }
 }
