@@ -290,6 +290,10 @@ function createNavigationDots() {
     const typingContainer = document.querySelector('.typing-container');
     if (!typingContainer) return;
     
+    // Check if dots already exist
+    const existingDots = typingContainer.querySelector('.passage-dots');
+    if (existingDots) return; // Don't create duplicates
+    
     // Create dots container
     const dotsContainer = document.createElement('div');
     dotsContainer.className = 'passage-dots';
