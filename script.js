@@ -356,8 +356,9 @@ function skipIntro() {
         createNavigationDots();
         // Start cycling after skip and transition
         setTimeout(() => {
+            createNavigationDots();
             startPassageCycling();
-        }, 2000);
+        }, 1000);
     }, 300);
 }
 
@@ -781,8 +782,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Start cycling after a delay
         setTimeout(() => {
+            createNavigationDots();
             startPassageCycling();
-        }, 2000);
+        }, 1000);
         
         // Show the post-typing content immediately since we're skipping the animation
         const postTypingContent = document.getElementById('post-typing-content');
@@ -906,8 +908,9 @@ if (document.readyState === 'loading') {
         
         // Start cycling after a delay
         setTimeout(() => {
+            createNavigationDots();
             startPassageCycling();
-        }, 2000);
+        }, 1000);
         
         // Show the post-typing content immediately since we're skipping the animation
         const postTypingContent = document.getElementById('post-typing-content');
