@@ -110,7 +110,7 @@
         }
         
         .blog-post-content {
-            font-family: 'Source Sans Pro', sans-serif;
+            font-family: 'Crimson Text', serif;
             line-height: 1.8;
             color: var(--text-primary);
             font-size: 1.1rem;
@@ -146,36 +146,6 @@
             font-weight: 500;
         }
 
-        /* Modern quote styling for impactful lines */
-        .blog-post-content p:nth-of-type(4),
-        .blog-post-content p:nth-of-type(12),
-        .blog-post-content p:nth-of-type(18) {
-            position: relative;
-            padding: 2rem 2rem 2rem 3rem;
-            margin: 2rem 0;
-            font-style: italic;
-            color: var(--text-primary);
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border-left: 4px solid var(--accent-teal);
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        .blog-post-content p:nth-of-type(4)::before,
-        .blog-post-content p:nth-of-type(12)::before,
-        .blog-post-content p:nth-of-type(18)::before {
-            content: '"';
-            position: absolute;
-            top: -0.5rem;
-            left: 1rem;
-            font-size: 4rem;
-            color: var(--accent-teal);
-            font-family: 'Crimson Text', serif;
-            font-weight: 600;
-            opacity: 0.3;
-        }
         
         .blog-post-content p:last-child {
             margin-bottom: 0;
@@ -221,168 +191,6 @@
             box-shadow: 0 4px 16px rgba(45, 125, 125, 0.3);
         }
         
-        .blog-post-actions {
-            border-top: 1px solid #e0e0e0;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-        
-        .action-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border: 2px solid var(--border-light);
-            border-radius: 25px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-decoration: none;
-            color: inherit;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
-        }
-
-        .action-btn:hover::before {
-            left: 100%;
-        }
-        
-        .action-btn:hover {
-            background: var(--accent-teal);
-            color: white;
-            border-color: var(--accent-teal);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(45, 125, 125, 0.3);
-        }
-        
-        .action-btn.liked {
-            background: linear-gradient(135deg, #ff6b6b, #ff5252);
-            color: white;
-            border-color: #ff6b6b;
-            box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
-        }
-
-        .action-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        
-        .action-icon {
-            font-size: 1rem;
-        }
-        
-        .action-count {
-            background: rgba(0,0,0,0.1);
-            padding: 0.2rem 0.5rem;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            min-width: 20px;
-            text-align: center;
-        }
-        
-        .action-btn:hover .action-count {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .comments-section {
-            border-top: 1px solid #e0e0e0;
-            padding: 2rem 0;
-            background: white;
-        }
-        
-        .comments-section h4 {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            color: #2c2c2c;
-        }
-        
-        .comment-form {
-            margin-bottom: 2rem;
-        }
-        
-        .comment-form textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 1rem;
-            resize: vertical;
-            margin-bottom: 1rem;
-        }
-        
-        .comment-form textarea:focus {
-            outline: none;
-            border-color: var(--accent-teal);
-            box-shadow: 0 0 0 2px rgba(45, 125, 125, 0.1);
-        }
-        
-        .submit-comment-btn {
-            background: var(--accent-teal);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s ease;
-        }
-        
-        .submit-comment-btn:hover {
-            background: var(--accent-teal-hover);
-        }
-        
-        .comments-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .comment {
-            padding: 1rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            background: #fafafa;
-        }
-        
-        .comment-author {
-            font-weight: 600;
-            color: var(--accent-teal);
-            margin-bottom: 0.5rem;
-        }
-        
-        .comment-text {
-            color: #444;
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
-        }
-        
-        .comment-date {
-            font-size: 0.8rem;
-            color: #666;
-        }
         
         @media (max-width: 768px) {
             .blog-hero {
@@ -415,30 +223,7 @@
                 line-height: 2.5rem;
             }
 
-            .blog-post-content p:nth-of-type(4),
-            .blog-post-content p:nth-of-type(12),
-            .blog-post-content p:nth-of-type(18) {
-                padding: 1.5rem 1.5rem 1.5rem 2.5rem;
-            }
-
-            .blog-post-content p:nth-of-type(4)::before,
-            .blog-post-content p:nth-of-type(12)::before,
-            .blog-post-content p:nth-of-type(18)::before {
-                font-size: 3rem;
-                left: 0.5rem;
-            }
             
-            .action-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.75rem;
-            }
-
-            .action-btn {
-                width: 100%;
-                max-width: 200px;
-                justify-content: center;
-            }
         }
     </style>
 </head>
@@ -502,35 +287,6 @@
                 <p class="blog-signature">—Saad</p>
             </div>
             
-            <div class="blog-post-actions">
-                <div class="action-buttons">
-                    <button class="action-btn like-btn" id="like-btn">
-                        <span class="action-icon">🤍</span>
-                        <span class="action-text">Like</span>
-                        <span class="action-count" id="like-count">0</span>
-                    </button>
-                    <button class="action-btn share-btn" id="share-btn">
-                        <span class="action-icon">📤</span>
-                        <span class="action-text">Share</span>
-                    </button>
-                    <button class="action-btn comment-btn" id="comment-btn">
-                        <span class="action-icon">💬</span>
-                        <span class="action-text">Comment</span>
-                        <span class="action-count" id="comment-count">0</span>
-                    </button>
-                </div>
-                
-                <div class="comments-section" id="comments-section" style="display: none;">
-                    <h4>Comments</h4>
-                    <div class="comment-form">
-                        <textarea id="comment-input" placeholder="Share your thoughts..." rows="3"></textarea>
-                        <button id="submit-comment" class="submit-comment-btn">Post Comment</button>
-                    </div>
-                    <div class="comments-list" id="comments-list">
-                        <!-- Comments will be loaded here -->
-                    </div>
-                </div>
-            </div>
             
             <div style="text-align: center; margin-top: 3rem;">
                 <a href="index.html" class="back-to-blog" onclick="markReturningFromBlog(); navigateToBlog(); return false;">
@@ -552,129 +308,6 @@
             window.location.href = 'index.html';
         }
         
-        // Blog post data storage (in a real app, this would be server-side)
-        let blogPostData = {
-            'babies-cant-read': {
-                likes: 0,
-                comments: []
-            }
-        };
-
-        // Load saved data from localStorage
-        const savedData = localStorage.getItem('blogPostData');
-        if (savedData) {
-            blogPostData = JSON.parse(savedData);
-        }
-
-        function saveData() {
-            localStorage.setItem('blogPostData', JSON.stringify(blogPostData));
-        }
-
-        function updateActionButtons() {
-            const data = blogPostData['babies-cant-read'] || { likes: 0, comments: [] };
-            document.getElementById('like-count').textContent = data.likes;
-            document.getElementById('comment-count').textContent = data.comments.length;
-        }
-
-        function initializeActionButtons() {
-            // Like button
-            document.getElementById('like-btn').addEventListener('click', () => {
-                const likeBtn = document.getElementById('like-btn');
-                const likeCount = document.getElementById('like-count');
-                
-                if (!blogPostData['babies-cant-read']) {
-                    blogPostData['babies-cant-read'] = { likes: 0, comments: [] };
-                }
-                
-                if (likeBtn.classList.contains('liked')) {
-                    // Unlike
-                    blogPostData['babies-cant-read'].likes--;
-                    likeBtn.classList.remove('liked');
-                    likeBtn.querySelector('.action-icon').textContent = '🤍';
-                } else {
-                    // Like
-                    blogPostData['babies-cant-read'].likes++;
-                    likeBtn.classList.add('liked');
-                    likeBtn.querySelector('.action-icon').textContent = '❤️';
-                }
-                
-                likeCount.textContent = blogPostData['babies-cant-read'].likes;
-                saveData();
-            });
-
-            // Share button
-            document.getElementById('share-btn').addEventListener('click', () => {
-                if (navigator.share) {
-                    navigator.share({
-                        title: 'Babies Can\'t Read - Saad Facchine',
-                        text: 'Check out this blog post!',
-                        url: window.location.href
-                    });
-                } else {
-                    // Fallback: copy to clipboard
-                    navigator.clipboard.writeText(window.location.href).then(() => {
-                        alert('Link copied to clipboard!');
-                    });
-                }
-            });
-
-            // Comment button
-            document.getElementById('comment-btn').addEventListener('click', () => {
-                const commentsSection = document.getElementById('comments-section');
-                if (commentsSection.style.display === 'none') {
-                    commentsSection.style.display = 'block';
-                    loadComments();
-                } else {
-                    commentsSection.style.display = 'none';
-                }
-            });
-
-            // Submit comment
-            document.getElementById('submit-comment').addEventListener('click', () => {
-                const commentInput = document.getElementById('comment-input');
-                const commentText = commentInput.value.trim();
-                
-                if (commentText) {
-                    if (!blogPostData['babies-cant-read']) {
-                        blogPostData['babies-cant-read'] = { likes: 0, comments: [] };
-                    }
-                    
-                    const newComment = {
-                        id: Date.now(),
-                        text: commentText,
-                        author: 'Anonymous',
-                        date: new Date().toLocaleDateString()
-                    };
-                    
-                    blogPostData['babies-cant-read'].comments.push(newComment);
-                    commentInput.value = '';
-                    
-                    // Update comment count
-                    document.getElementById('comment-count').textContent = blogPostData['babies-cant-read'].comments.length;
-                    
-                    // Reload comments
-                    loadComments();
-                    saveData();
-                }
-            });
-        }
-
-        function loadComments() {
-            const commentsList = document.getElementById('comments-list');
-            const data = blogPostData['babies-cant-read'] || { comments: [] };
-            
-            if (data.comments.length === 0) {
-                commentsList.innerHTML = '<p style="color: #666; font-style: italic;">No comments yet. Be the first to share your thoughts!</p>';
-            } else {
-                commentsList.innerHTML = data.comments.map(comment => `
-                    <div class="comment">
-                        <div class="comment-author">${comment.author}</div>
-                        <div class="comment-text">${comment.text}</div>
-                        <div class="comment-date">${comment.date}</div>
-                    </div>
-                `).join('');
-            }
-        }
 
         // Reading progress functionality
         function updateReadingProgress() {
@@ -698,9 +331,6 @@
 
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            updateActionButtons();
-            initializeActionButtons();
-            
             // Set up reading progress
             window.addEventListener('scroll', updateReadingProgress);
             window.addEventListener('resize', updateReadingProgress);
