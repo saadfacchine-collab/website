@@ -557,7 +557,7 @@ function initializeNewsletterForm() {
                     submitBtn.style.display = 'none';
                     
                     const successMessage = document.createElement('div');
-                    successMessage.innerHTML = '<p style="color: var(--accent-teal); font-weight: 600; margin: 0;">✓ Thank you for subscribing!</p>';
+                    successMessage.innerHTML = '<p style="color: var(--accent-teal); font-weight: 600; margin: 0;">✓ Thank you for subscribing! A confirmation email was sent to your inbox — please check your spam folder as well.</p>';
                     successMessage.style.textAlign = 'center';
                     successMessage.style.padding = '1rem';
                     
