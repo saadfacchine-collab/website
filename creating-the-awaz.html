@@ -204,6 +204,40 @@
             color: var(--text-primary);
             font-size: 0.9rem;
         }
+
+        /* Blockquote styling for novel quotes */
+        .blog-post-content blockquote {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-left: 4px solid var(--accent-teal);
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            font-style: italic;
+            position: relative;
+        }
+
+        .blog-post-content blockquote::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--accent-teal);
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            opacity: 0.3;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .blog-post-content blockquote p {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .blog-post-content blockquote p:last-child {
+            margin-bottom: 0;
+        }
         
         @media (max-width: 768px) {
             .blog-hero {
@@ -276,11 +310,13 @@ public class HelloWorld {
                 
                 <p>In <em>The Model Muslim</em>, you meet the Awaz—the voice inside my protagonist Kamaal—through a similar device. I give the Awaz its own dialogue tag. Here are a few lines from the opening chapter:</p>
                 
-                <p>Apparently, my oracle believed that a third would push me beyond whatever invisible line it had drawn. Allah forbid I decide where that line should be.</p>
-                
-                <p><code>// Two is enough, Kamaal. Two keeps you steady, //</code> my Awaz said, the way someone tries to soothe a child. <code>// You know I wouldn't ask without reason. //</code></p>
-                
-                <p>Forcing a smile at the barista, I took the chai like a dose, stirred it once, and let the spoon tap out my compliance.</p>
+                <blockquote>
+                    <p>Apparently, my oracle believed that a third would push me beyond whatever invisible line it had drawn. Allah forbid I decide where that line should be.</p>
+                    
+                    <p><code>// Two is enough, Kamaal. Two keeps you steady, //</code> my Awaz said, the way someone tries to soothe a child. <code>// You know I wouldn't ask without reason. //</code></p>
+                    
+                    <p>Forcing a smile at the barista, I took the chai like a dose, stirred it once, and let the spoon tap out my compliance.</p>
+                </blockquote>
                 
                 <p>The Awaz is its own character living in Kamaal's head. I use two forward slashes <code>//</code> to indicate when the Awaz is speaking—the same symbol many languages use for comments. Think of Kamaal as the function that runs, and the Awaz as the commentary: the entity advising, nudging, sometimes nagging him about what to do.</p>
                 
@@ -288,12 +324,14 @@ public class HelloWorld {
                 
                 <p>The Awaz also functions as another POV to play against Kamaal. The novel actually opens with a short passage from the Awaz's perspective:</p>
                 
-                <p>I can already feel it:<br>
-                the jaw tightening,<br>
-                the heat at his neck,<br>
-                the curse meant only for me.<br>
-                The blame, always the blame,<br>
-                as if I chose the deviation myself.</p>
+                <blockquote>
+                    <p>I can already feel it:<br>
+                    the jaw tightening,<br>
+                    the heat at his neck,<br>
+                    the curse meant only for me.<br>
+                    The blame, always the blame,<br>
+                    as if I chose the deviation myself.</p>
+                </blockquote>
                 
                 <p>You'll notice the Awaz's voice isn't mechanical or code-like; it's verse-like. Conventionally, we'd call that novel-in-verse. My book uses it sparingly, not for the entire narrative, but enough for you to feel how the Awaz "feels"—its urgency, its rationale, its yearning for Kamaal to accept its recommendations—across both timelines: teenage Kamaal and decades-older Kamaal.</p>
                 
