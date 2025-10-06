@@ -213,19 +213,7 @@
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            font-style: italic;
             position: relative;
-        }
-
-        .blog-post-content blockquote::before {
-            content: '"';
-            font-size: 4rem;
-            color: var(--accent-teal);
-            position: absolute;
-            top: -0.5rem;
-            left: 1rem;
-            opacity: 0.3;
-            font-family: 'Crimson Text', serif;
         }
 
         .blog-post-content blockquote p {
@@ -237,6 +225,16 @@
 
         .blog-post-content blockquote p:last-child {
             margin-bottom: 0;
+        }
+
+        .blog-post-content blockquote p:first-of-type::first-letter {
+            float: none;
+            font-size: inherit;
+            line-height: inherit;
+            padding: 0;
+            color: inherit;
+            font-family: inherit;
+            font-weight: inherit;
         }
         
         @media (max-width: 768px) {
@@ -313,7 +311,7 @@ public class HelloWorld {
                 <blockquote>
                     <p>Apparently, my oracle believed that a third would push me beyond whatever invisible line it had drawn. Allah forbid I decide where that line should be.</p>
                     
-                    <p><code>// Two is enough, Kamaal. Two keeps you steady, //</code> my Awaz said, the way someone tries to soothe a child. <code>// You know I wouldn't ask without reason. //</code></p>
+                    <p>// Two is enough, Kamaal. Two keeps you steady, // my Awaz said, the way someone tries to soothe a child. // You know I wouldn't ask without reason. //</p>
                     
                     <p>Forcing a smile at the barista, I took the chai like a dose, stirred it once, and let the spoon tap out my compliance.</p>
                 </blockquote>
