@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inside the Publishing Process - Saad Facchine</title>
+    <meta name="description" content="For anyone curious about what really goes into publishing a novel, this post should give you a glimpse behind the curtain.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --teal: #2d7d7d;
+            --teal-light: #4a9999;
+            --teal-dark: #1f6b6b;
+            --charcoal: #1a1a1a;
+            --warm-cream: #f8f6f3;
+            --paper-white: #fefcf9;
+            --ink-gray: #2c2c2c;
+            --soft-gray: #6b6b6b;
+            --accent-gold: #d4af37;
+        }
+
+        .blog-post-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--warm-cream) 0%, #f0ede8 50%, var(--paper-white) 100%);
+            padding-top: 0;
+            position: relative;
+        }
+
+        /* Reading Progress Bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--teal), var(--teal-light));
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        /* Hero Section */
+        .blog-hero {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            color: white;
+            padding: 4rem 0 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .blog-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .blog-post-date {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        
+        .blog-post-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: white;
+            letter-spacing: -0.01em;
+        }
+
+        .blog-post-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        
+        .blog-post-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            background: var(--paper-white);
+            box-shadow: 0 8px 25px rgba(45, 125, 125, 0.1);
+            border-radius: 0;
+            margin-top: -2rem;
+            position: relative;
+            z-index: 3;
+            border: 1px solid rgba(45, 125, 125, 0.1);
+        }
+        
+        .blog-post-content {
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1.8;
+            color: var(--ink-gray);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+        
+        .blog-post-content p {
+            margin-bottom: 1.8rem;
+            text-align: justify;
+            position: relative;
+        }
+
+        /* Drop cap for first paragraph */
+        .blog-post-content p:first-of-type::first-letter {
+            float: left;
+            font-size: 4rem;
+            line-height: 3rem;
+            padding-right: 8px;
+            padding-top: 4px;
+            color: var(--teal);
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+        }
+
+        /* Special styling for step headers */
+        .blog-post-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--charcoal);
+            margin: 3rem 0 1.5rem 0;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        .blog-post-content h3:first-of-type {
+            margin-top: 2rem;
+        }
+        
+        .blog-post-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .blog-signature {
+            font-style: italic;
+            color: var(--teal);
+            margin-top: 3rem !important;
+            text-align: right;
+            font-size: 1.2rem;
+            font-weight: 400;
+            border-top: 2px solid var(--teal);
+            padding-top: 1rem;
+            position: relative;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .blog-signature::before {
+            content: '✍️';
+            margin-right: 0.5rem;
+        }
+        
+        .back-to-blog {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--teal);
+            text-decoration: none;
+            font-weight: 400;
+            margin-top: 3rem;
+            padding: 1rem 2rem;
+            border: 1px solid var(--teal);
+            border-radius: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--paper-white);
+            box-shadow: 0 2px 8px rgba(45, 125, 125, 0.1);
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .back-to-blog:hover {
+            color: var(--paper-white);
+            background: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(45, 125, 125, 0.2);
+        }
+
+        /* Blog newsletter section styling */
+        .blog-newsletter-section {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            margin: 3rem 0;
+            padding: 3rem 2rem;
+            border-radius: 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-newsletter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .newsletter-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: white;
+            font-weight: 300;
+        }
+
+        .newsletter-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .newsletter-input-group {
+            display: flex;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid rgba(45, 125, 125, 0.2);
+            border-radius: 0;
+            font-size: 1rem;
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--paper-white);
+            color: var(--ink-gray);
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 2px rgba(45, 125, 125, 0.1);
+        }
+
+        .subscribe-btn {
+            background: var(--paper-white);
+            color: var(--teal);
+            border: 1px solid var(--teal);
+            padding: 1rem 2rem;
+            border-radius: 0;
+            font-size: 1rem;
+            font-weight: 400;
+            font-family: 'IBM Plex Mono', monospace;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .subscribe-btn:hover {
+            background: var(--teal);
+            color: var(--paper-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 125, 125, 0.2);
+        }
+
+        .honeypot {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .blog-hero {
+                padding: 3rem 0 2rem;
+            }
+
+            .blog-hero-content {
+                padding: 0 1rem;
+            }
+            
+            .blog-post-container {
+                padding: 2rem 1rem;
+                margin-top: -1rem;
+            }
+            
+            .blog-post-title {
+                font-size: 2.2rem;
+            }
+
+            .blog-post-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .blog-post-content {
+                font-size: 1rem;
+            }
+
+            .blog-post-content p:first-of-type::first-letter {
+                font-size: 3rem;
+                line-height: 2.5rem;
+            }
+
+            .newsletter-input-group {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .newsletter-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .blog-newsletter-section {
+                padding: 2rem 1rem;
+                margin: 2rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reading-progress" id="reading-progress"></div>
+    
+    <div class="blog-post-page">
+        <div class="blog-hero">
+            <div class="blog-hero-content">
+                <div class="blog-post-date">12/15/25</div>
+                <h1 class="blog-post-title">Inside the Publishing Process</h1>
+                <p class="blog-post-subtitle">For anyone curious about what really goes into publishing a novel, this post should give you a glimpse behind the curtain.</p>
+            </div>
+        </div>
+        
+        <div class="blog-post-container">
+            <div class="blog-post-content">
+                <p>After finishing the first draft of my novel, I celebrated, went out for a drink with my husband, and let it sink in that I had somehow written 100,000 words in six months.</p>
+                
+                <p>Of course, that was only the beginning. There was still a lot to do — cutting, rewriting, polishing. That part took another four years. (Things got in the way: new jobs, buying a home, getting married.) I'm sure that stage deserves its own blog post someday.</p>
+
+                <h3>Step 0: Choosing a Publishing Path</h3>
+                
+                <p>Finishing a novel is only Step 0 of getting it into readers' hands. Once you type "The End," you face two main paths: self-publishing or traditional publishing.</p>
+                
+                <p>If I chose self-publishing, I could get my book out much faster. But that would mean handling everything myself — marketing, design, distribution — and covering the costs along the way.</p>
+                
+                <p>I decided to go the traditional route instead. That means entering what authors call "the query trenches," an arduous process to try to land a literary agent who can sell your book to a traditional publisher (think Penguin Random House, HarperCollins, etc.). The publisher then handles editing, marketing, and sales, while the author earns a smaller percentage of profits.</p>
+
+                <h3>Step 1: The Query Trenches</h3>
+                
+                <p>Step 0 is having a polished manuscript. Step 1 is preparing your query package for the trenches.</p>
+                
+                <p>The hardest part for most writers is the query letter — a short pitch, about 300 words, that describes what your book is about, who it's for, and who you are. My novel ended up around 75,000 words, so fitting all of that into a few paragraphs felt nearly impossible.</p>
+                
+                <p>The goal of the query letter is simple: get the agent to read your first few pages. It doesn't have to be perfect, but it does need to stand out. Most agents receive hundreds of queries every week. One agent I queried had more than a thousand in a single month — all while juggling existing clients.</p>
+                
+                <p>If an agent likes your concept and the sample pages, they might request the full manuscript. From there, one of three things can happen:</p>
+                
+                <p>They offer representation (cue celebration).</p>
+                <p>They pass.</p>
+                <p>They ask for a "revise and resubmit."</p>
+                
+                <p>That last option usually means they see potential but want changes before committing. Many writers dread that stage — it can feel like rewriting the book all over again. After five years of work, the idea of another full rewrite can be daunting.</p>
+
+                <h3>Step 1.5 in Action: Where I Am Now</h3>
+                
+                <p>So, where am I in the process right now? Somewhere between Step 1 and Step 2 — call it Step 1.5.</p>
+                
+                <p>I've sent my query package to 34 agents. So far, I've received 11 rejections, but 4 agents currently have the full manuscript and are reading it, which means one of them could offer representation. The remaining 18 haven't responded yet, and that's normal — it can take 6 to 8 weeks (or more) to hear back.</p>
+                
+                <p>One agent who read the full already passed, though they had kind things to say about the story and simply didn't feel like the right fit to sell it. I'm not discouraged. Having four agents reading the novel — two of whom I met in person at the Maryland Writers' Conference — feels like progress.</p>
+
+                <h3>Step 2: The Agent and Beyond</h3>
+                
+                <p>If, and that's a big if, I get an offer of representation, I'll move to Step 2: working with an agent to prepare the book for submission to publishers. It's another round of queries, but this time with someone on your side who knows how to get it into the right hands.</p>
+                
+                <p>I'm likely weeks or months away from that stage, but I'll keep you posted.</p>
+                
+                <p>Thanks for reading, and if you'd like to follow along on this journey, subscribe to my newsletter for updates.</p>
+                
+                <p class="blog-signature">—Saad</p>
+            </div>
+            
+            <!-- Newsletter subscription section -->
+            <div class="blog-newsletter-section">
+                <div class="newsletter-content">
+                    <h3>If you liked this post, subscribe to my newsletter!</h3>
+                    <p>Get updates on <em>The Model Muslim</em> and my writing journey.</p>
+                    <form class="newsletter-form" name="newsletter" method="POST" netlify-honeypot="bot-field" data-netlify="true">
+                        <input type="hidden" name="form-name" value="newsletter" />
+                        <p class="honeypot">
+                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                        </p>
+                        <div class="newsletter-input-group">
+                            <input type="email" name="email" class="email-input" placeholder="Enter your email address" required>
+                            <button type="submit" class="subscribe-btn">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="index.html" class="back-to-blog" onclick="markReturningFromBlog(); navigateToBlog(); return false;">
+                    ← Back to Blog
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mark that user is returning from blog to prevent cold open
+        function markReturningFromBlog() {
+            sessionStorage.setItem('returningFromBlog', 'true');
+        }
+
+        // Navigate to blog tab smoothly
+        function navigateToBlog() {
+            sessionStorage.setItem('navigateToBlog', 'true');
+            window.location.href = 'index.html';
+        }
+        
+        // Reading progress functionality
+        function updateReadingProgress() {
+            const progressBar = document.getElementById('reading-progress');
+            const content = document.querySelector('.blog-post-content');
+            
+            if (!progressBar || !content) return;
+            
+            const contentTop = content.offsetTop;
+            const contentHeight = content.offsetHeight;
+            const windowHeight = window.innerHeight;
+            const scrollTop = window.pageYOffset;
+            
+            const progress = Math.min(
+                Math.max((scrollTop - contentTop + windowHeight) / contentHeight, 0),
+                1
+            );
+            
+            progressBar.style.width = (progress * 100) + '%';
+        }
+
+        // Newsletter form handling (reusing homepage functionality)
+        function initializeNewsletterForm() {
+            const newsletterForm = document.querySelector('.newsletter-form');
+            console.log('Newsletter form found:', newsletterForm); // Debug log
+            
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    console.log('Form submitted!'); // Debug log
+                    e.preventDefault(); // Prevent default form submission
+                    
+                    const emailInput = newsletterForm.querySelector('.email-input');
+                    const submitBtn = newsletterForm.querySelector('.subscribe-btn');
+                    const originalBtnText = submitBtn.textContent;
+                    
+                    // Show loading state
+                    submitBtn.textContent = 'Subscribing...';
+                    submitBtn.disabled = true;
+                    
+                    // Get form data and convert to URL-encoded format
+                    const formData = new FormData(newsletterForm);
+                    const urlEncodedData = new URLSearchParams(formData).toString();
+                    
+                    // Submit via AJAX
+                    console.log('Submitting form data:', urlEncodedData); // Debug log
+                    fetch('/.netlify/functions/convertkit-webhook', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: urlEncodedData
+                    })
+                    .then(response => {
+                        console.log('Response status:', response.status); // Debug log
+                        console.log('Response headers:', response.headers); // Debug log
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Response data:', data); // Debug log
+                        if (data.success) {
+                            // Show success message
+                            emailInput.style.display = 'none';
+                            submitBtn.style.display = 'none';
+                            
+                            const successMessage = document.createElement('div');
+                            successMessage.innerHTML = '<p style="color: white; font-weight: 600; margin: 0;">✓ Thank you for subscribing! A confirmation email was sent to your inbox — please check your spam folder as well.</p>';
+                            successMessage.style.textAlign = 'center';
+                            successMessage.style.padding = '1rem';
+                            
+                            newsletterForm.appendChild(successMessage);
+                        } else {
+                            // Show error message
+                            submitBtn.textContent = 'Error - Try Again';
+                            submitBtn.disabled = false;
+                            
+                            const errorMessage = document.createElement('div');
+                            errorMessage.innerHTML = '<p style="color: #ffeb3b; font-weight: 600; margin: 0;">❌ Something went wrong. Please try again.</p>';
+                            errorMessage.style.textAlign = 'center';
+                            errorMessage.style.padding = '1rem';
+                            
+                            newsletterForm.appendChild(errorMessage);
+                            
+                            // Reset button after 3 seconds
+                            setTimeout(() => {
+                                submitBtn.textContent = originalBtnText;
+                                submitBtn.disabled = false;
+                                if (errorMessage.parentNode) {
+                                    errorMessage.remove();
+                                }
+                            }, 3000);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                        submitBtn.textContent = 'Error - Try Again';
+                        submitBtn.disabled = false;
+                        
+                        const errorMessage = document.createElement('div');
+                        errorMessage.innerHTML = `<p style="color: #ffeb3b; font-weight: 600; margin: 0;">❌ Error: ${error.message}</p>`;
+                        errorMessage.style.textAlign = 'center';
+                        errorMessage.style.padding = '1rem';
+                        
+                        newsletterForm.appendChild(errorMessage);
+                        
+                        // Reset button after 3 seconds
+                        setTimeout(() => {
+                            submitBtn.textContent = originalBtnText;
+                            submitBtn.disabled = false;
+                            if (errorMessage.parentNode) {
+                                errorMessage.remove();
+                            }
+                        }, 3000);
+                    });
+                });
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up reading progress
+            window.addEventListener('scroll', updateReadingProgress);
+            window.addEventListener('resize', updateReadingProgress);
+            updateReadingProgress(); // Initial call
+            
+            // Initialize newsletter form
+            initializeNewsletterForm();
+        });
+    </script>
+</body>
+</html>
