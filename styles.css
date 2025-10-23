@@ -435,13 +435,20 @@ em strong {
 }
 
 .prominent-newsletter h2 {
-    font-size: var(--font-size-5xl);
+    font-size: var(--font-size-4xl);
     margin-bottom: var(--space-md);
     color: var(--charcoal);
     font-weight: 300;
     font-family: 'Playfair Display', serif;
     letter-spacing: -0.02em;
     line-height: 1.1;
+    min-height: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-align: center;
 }
 
 .author-name {
@@ -960,7 +967,8 @@ em strong {
     }
     
     .prominent-newsletter h2 {
-        font-size: var(--font-size-4xl);
+        font-size: var(--font-size-3xl);
+        min-height: 1.3em;
     }
     
     .author-image {
@@ -993,6 +1001,11 @@ em strong {
     
     .prominent-newsletter {
         padding: var(--space-xl) var(--space-md);
+    }
+    
+    .prominent-newsletter h2 {
+        font-size: var(--font-size-2xl);
+        min-height: 1.4em;
     }
     
     .blog-post-title {
