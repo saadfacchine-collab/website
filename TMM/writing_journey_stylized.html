@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Model Muslim - Writing Journey</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 50px;
+        }
+
+        h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: 3em;
+            color: #2c2c2c;
+            margin-bottom: 10px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 1.2em;
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .milestone {
+            padding: 24px;
+            border-left: 4px solid #2d7d7d;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .milestone:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(45, 125, 125, 0.2);
+        }
+
+        .milestone.beta {
+            border-left-color: #e74c3c;
+        }
+
+        .milestone.query {
+            border-left-color: #3498db;
+        }
+
+        .milestone.revision {
+            border-left-color: #f39c12;
+        }
+
+        .milestone-date {
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+            color: #2d7d7d;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .milestone.beta .milestone-date {
+            color: #e74c3c;
+        }
+
+        .milestone.query .milestone-date {
+            color: #3498db;
+        }
+
+        .milestone.revision .milestone-date {
+            color: #f39c12;
+        }
+
+        .milestone-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #2c2c2c;
+        }
+
+        .milestone-desc {
+            color: #666;
+            line-height: 1.7;
+            font-size: 0.95em;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #2d7d7d 0%, #1f6b6b 100%);
+            border-radius: 12px;
+            color: white;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Crimson Text', serif;
+            font-size: 3em;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.95;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+
+            #canvas-container {
+                height: 400px;
+            }
+
+            .timeline {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✍️ The Model Muslim</h1>
+        <p class="subtitle">A Five-Year Writing Journey</p>
+
+        <div id="canvas-container">
+            <canvas id="journey-canvas"></canvas>
+        </div>
+
+        <div class="timeline">
+            <div class="milestone">
+                <div class="milestone-date">August 2020 - January 2022</div>
+                <div class="milestone-title">📝 Rising Action: Initial Draft</div>
+                <div class="milestone-desc">
+                    The beginning. Rapid writing sessions, discovery drafting, building the world of Kamaal and the Awaz. Word count climbed steadily to over 100,000 words.
+                </div>
+            </div>
+
+            <div class="milestone beta">
+                <div class="milestone-date">January 2022</div>
+                <div class="milestone-title">👥 First Beta Reads</div>
+                <div class="milestone-desc">
+                    Sent the manuscript to first readers. Their feedback revealed what needed to change. The real work was about to begin.
+                </div>
+            </div>
+
+            <div class="milestone revision">
+                <div class="milestone-date">February 2022 - December 2022</div>
+                <div class="milestone-title">✂️ Revision & Cutting</div>
+                <div class="milestone-desc">
+                    Major structural revisions. Cutting scenes, tightening prose, sharpening the voice. Word count dropped from 101k to 90k. Every cut hurt. Every cut was necessary.
+                </div>
+            </div>
+
+            <div class="milestone query">
+                <div class="milestone-date">January 2023</div>
+                <div class="milestone-title">📬 First Query Submission</div>
+                <div class="milestone-desc">
+                    Manuscript at 90,000 words. Sent the first queries. Then... waiting. The long silence.
+                </div>
+            </div>
+
+            <div class="milestone">
+                <div class="milestone-date">2023 - June 2025</div>
+                <div class="milestone-title">⏸️ The Gap</div>
+                <div class="milestone-desc">
+                    Life happened. The manuscript sat. Occasional tweaks, but mostly untouched for over two years. Sometimes the best thing you can do is step away.
+                </div>
+            </div>
+
+            <div class="milestone revision">
+                <div class="milestone-date">July 2025 - September 2025</div>
+                <div class="milestone-title">🔥 Final Polish</div>
+                <div class="milestone-desc">
+                    Returned with fresh eyes. Ruthless cutting. Tighter prose. Stronger voice. From 90k down to 75k. The manuscript finally felt right.
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Years</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">274</span>
+                <span class="stat-label">Sessions</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">102k</span>
+                <span class="stat-label">Peak Words</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">75k</span>
+                <span class="stat-label">Final Draft</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('journey-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            const container = document.getElementById('canvas-container');
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            drawJourney();
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function drawJourney() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const padding = 60;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+
+            // Define the journey data points
+            const startDate = new Date('2020-08-01');
+            const endDate = new Date('2025-09-30');
+            const totalDays = (endDate - startDate) / (1000 * 60 * 60 * 24);
+
+            // Key points in the journey
+            const milestones = [
+                { date: new Date('2020-08-01'), words: 0, label: 'Start' },
+                { date: new Date('2020-12-01'), words: 20000, label: '' },
+                { date: new Date('2021-06-01'), words: 60000, label: '' },
+                { date: new Date('2021-12-01'), words: 95000, label: '' },
+                { date: new Date('2022-01-15'), words: 101500, label: '📚 Beta Reads\n101k words' },
+                { date: new Date('2022-04-01'), words: 98000, label: '' },
+                { date: new Date('2022-08-01'), words: 93000, label: '' },
+                { date: new Date('2023-01-15'), words: 90000, label: '📬 Query\n90k words' },
+                { date: new Date('2023-06-01'), words: 90000, label: '' },
+                { date: new Date('2024-01-01'), words: 90000, label: '' },
+                { date: new Date('2025-01-01'), words: 89500, label: '' },
+                { date: new Date('2025-07-15'), words: 88000, label: '✂️ Final Cut' },
+                { date: new Date('2025-08-15'), words: 80000, label: '' },
+                { date: new Date('2025-09-30'), words: 74500, label: '✨ 75k Final' }
+            ];
+
+            // Convert dates to x positions
+            function dateToX(date) {
+                const days = (date - startDate) / (1000 * 60 * 60 * 24);
+                return padding + (days / totalDays) * (width - 2 * padding);
+            }
+
+            // Convert words to y position
+            function wordsToY(words) {
+                const maxWords = 105000;
+                return height - padding - (words / maxWords) * (height - 2 * padding);
+            }
+
+            // Draw background phases
+            const phases = [
+                { start: new Date('2020-08-01'), end: new Date('2022-01-15'), color: 'rgba(45, 125, 125, 0.08)' },
+                { start: new Date('2022-01-15'), end: new Date('2023-01-15'), color: 'rgba(231, 76, 60, 0.08)' },
+                { start: new Date('2023-01-15'), end: new Date('2025-07-01'), color: 'rgba(149, 165, 166, 0.08)' },
+                { start: new Date('2025-07-01'), end: new Date('2025-09-30'), color: 'rgba(243, 156, 18, 0.08)' }
+            ];
+
+            phases.forEach(phase => {
+                ctx.fillStyle = phase.color;
+                ctx.fillRect(
+                    dateToX(phase.start),
+                    padding,
+                    dateToX(phase.end) - dateToX(phase.start),
+                    height - 2 * padding
+                );
+            });
+
+            // Draw grid lines
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (i / 5) * (height - 2 * padding);
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(width - padding, y);
+                ctx.stroke();
+            }
+
+            // Draw y-axis labels
+            ctx.fillStyle = '#666';
+            ctx.font = '12px Source Sans Pro';
+            ctx.textAlign = 'right';
+            for (let i = 0; i <= 5; i++) {
+                const words = (5 - i) * 20000;
+                const y = padding + (i / 5) * (height - 2 * padding);
+                ctx.fillText(`${words / 1000}k`, padding - 10, y + 4);
+            }
+
+            // Draw the main curve
+            ctx.beginPath();
+            ctx.strokeStyle = '#2d7d7d';
+            ctx.lineWidth = 4;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+
+            milestones.forEach((point, i) => {
+                const x = dateToX(point.date);
+                const y = wordsToY(point.words);
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.stroke();
+
+            // Draw area under curve
+            ctx.fillStyle = 'rgba(45, 125, 125, 0.1)';
+            ctx.beginPath();
+            ctx.moveTo(dateToX(milestones[0].date), height - padding);
+            milestones.forEach(point => {
+                ctx.lineTo(dateToX(point.date), wordsToY(point.words));
+            });
+            ctx.lineTo(dateToX(milestones[milestones.length - 1].date), height - padding);
+            ctx.closePath();
+            ctx.fill();
+
+            // Draw milestone points and labels
+            milestones.forEach(point => {
+                if (point.label) {
+                    const x = dateToX(point.date);
+                    const y = wordsToY(point.words);
+
+                    // Draw point
+                    ctx.beginPath();
+                    ctx.arc(x, y, 6, 0, Math.PI * 2);
+                    ctx.fillStyle = '#2d7d7d';
+                    ctx.fill();
+                    ctx.strokeStyle = 'white';
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+
+                    // Draw label
+                    ctx.fillStyle = '#2c2c2c';
+                    ctx.font = 'bold 13px Source Sans Pro';
+                    ctx.textAlign = 'center';
+                    const lines = point.label.split('\n');
+                    lines.forEach((line, i) => {
+                        ctx.fillText(line, x, y - 20 - (lines.length - 1 - i) * 16);
+                    });
+                }
+            });
+
+            // Draw axes
+            ctx.strokeStyle = '#2c2c2c';
+            ctx.lineWidth = 2;
+            
+            // Y-axis
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, height - padding);
+            ctx.stroke();
+
+            // X-axis
+            ctx.beginPath();
+            ctx.moveTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.stroke();
+
+            // X-axis labels (years)
+            ctx.fillStyle = '#666';
+            ctx.font = '12px Source Sans Pro';
+            ctx.textAlign = 'center';
+            const years = ['2020', '2021', '2022', '2023', '2024', '2025'];
+            years.forEach((year, i) => {
+                const x = padding + (i / (years.length - 1)) * (width - 2 * padding);
+                ctx.fillText(year, x, height - padding + 20);
+            });
+
+            // Axis titles
+            ctx.save();
+            ctx.translate(20, height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillStyle = '#2c2c2c';
+            ctx.font = 'bold 14px Source Sans Pro';
+            ctx.textAlign = 'center';
+            ctx.fillText('Word Count', 0, 0);
+            ctx.restore();
+
+            ctx.fillStyle = '#2c2c2c';
+            ctx.font = 'bold 14px Source Sans Pro';
+            ctx.textAlign = 'center';
+            ctx.fillText('Year', width / 2, height - 5);
+        }
+    </script>
+</body>
+</html>

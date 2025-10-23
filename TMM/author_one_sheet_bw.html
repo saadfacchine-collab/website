@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author One Sheet - The Model Muslim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: white;
+            padding: 20px;
+        }
+
+        .one-sheet {
+            max-width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            border: 3px solid #000;
+            position: relative;
+        }
+
+        .header {
+            background: #000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            border-bottom: 3px solid #000;
+        }
+
+        .title {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1em;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .author-name {
+            font-size: 1.1em;
+            margin-top: 5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            padding: 15px;
+        }
+
+        .section {
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2em;
+            color: #000;
+            border-bottom: 2px solid #000;
+            padding-bottom: 4px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pitch {
+            background: #f5f5f5;
+            padding: 12px;
+            border: 2px solid #000;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .book-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .detail-item {
+            background: white;
+            padding: 10px;
+            border: 2px solid #000;
+            font-size: 0.85em;
+            text-align: center;
+        }
+
+        .detail-label {
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 4px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .synopsis {
+            background: white;
+            border: 2px solid #000;
+            padding: 12px;
+            text-align: justify;
+            font-size: 0.88em;
+            line-height: 1.5;
+        }
+
+        .synopsis p {
+            margin-bottom: 8px;
+        }
+
+        .synopsis p:last-child {
+            margin-bottom: 0;
+        }
+
+        .author-bio {
+            background: #f5f5f5;
+            padding: 12px;
+            border: 2px solid #000;
+            font-size: 0.88em;
+            line-height: 1.5;
+        }
+
+        .contact-info {
+            background: #000;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 0.85em;
+            border: 2px solid #000;
+        }
+
+        .quote {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.15em;
+            color: #000;
+            text-align: center;
+            margin: 8px 0 12px 0;
+            padding: 12px;
+            background: white;
+            border: 3px double #000;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+        }
+
+        .decorative-line {
+            height: 2px;
+            background: #000;
+            margin: 8px 0;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .one-sheet {
+                border: 3px solid #000;
+            }
+            .header {
+                background: #000 !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .contact-info {
+                background: #000 !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .pitch {
+                background: #f5f5f5 !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .author-bio {
+                background: #f5f5f5 !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="one-sheet">
+        <div class="header">
+            <h1 class="title">The Model Muslim</h1>
+            <p class="subtitle">A Novel</p>
+            <p class="author-name">by Saad Facchine</p>
+        </div>
+
+        <div class="content">
+            <div class="quote">
+                "If a system promises you a perfect life, what parts of you have to disappear to fit it?"
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">One Paragraph Pitch</h2>
+                <div class="pitch">
+                    In a Muslim-majority America, every believer carries the Awaz—a sleek algorithm whispering all the 'right' moves. For Kamaal, a celebrated writer-director, the Awaz has dictated his life, including concealing his true identity. When the Caliphate offers his newborn son the first infant Awaz, Kamaal faces a harrowing choice between his curated life and his family's autonomy.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="book-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Genre</div>
+                        <div>Upmarket Speculative Fiction</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Word Count</div>
+                        <div>75,000 words</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Status</div>
+                        <div>Complete manuscript</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Target Audience</div>
+                        <div>Book club fiction, LGBTQ+ readers</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Synopsis</h2>
+                <div class="synopsis">
+                    <p>Kamaal has had his Awaz longer than most. Recruited in high school as a test case for the New Caliphate's "opportunity to improve Muslim lives," he became a celebrated writer-director with a seemingly perfect life—a beautiful wife, a newborn son, and a glossy resume. But there's a cost. The Awaz has always told him to keep one truth offstage: <span class="highlight">he's gay</span>. The device engineered a lavender marriage and dressed it up as virtue.</p>
+                    
+                    <p>Now dissent is simmering—people are starting to notice the gap between obedience and joy—and the Caliphate needs a grand gesture to steady the faithful. They offer Kamaal an honor that's also a threat: <span class="highlight">let your newborn be the first infant fitted with an Awaz</span>. If Kamaal agrees, he hands his son's autonomy to a machine before the boy can even form a memory. But if he refuses, he risks collapsing the curated life the Awaz built for him.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Author Bio</h2>
+                <div class="author-bio">
+                    <p>Writing from my lived experience as a gay Muslim working in technology, I bring authenticity and depth to <em>The Model Muslim</em>. I live near Baltimore with my husband and two cats, and unlike Kamaal, I am very happily married. This novel explores the intersection of technology, faith, and identity through a queer lens, drawing from my personal journey navigating these complex spaces.</p>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <p><strong>Contact:</strong> saadfacchine@gmail.com | saadfacchine.com | Baltimore, MD | <em>Manuscript available upon request</em></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

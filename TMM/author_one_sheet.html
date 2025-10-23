@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author One Sheet - The Model Muslim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent-teal: #2d7d7d;
+            --accent-teal-hover: #1f6b6b;
+            --accent-teal-light: #4a9999;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .one-sheet {
+            max-width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #e0e0e0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-hover) 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.2;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+        }
+
+        .subtitle {
+            font-size: 1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        .header-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            transform: scale(1.2);
+        }
+
+        .author-name {
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 15px;
+        }
+
+        .section {
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1em;
+            color: #2c2c2c;
+            border-bottom: 1px solid var(--accent-teal);
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .pitch {
+            background: #f8f9fa;
+            padding: 10px;
+            border-left: 3px solid var(--accent-teal);
+            border-radius: 0 4px 4px 0;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .book-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .detail-item {
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 4px;
+            border-left: 2px solid var(--accent-teal);
+            font-size: 0.85em;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-bottom: 2px;
+            font-size: 0.8em;
+        }
+
+        .synopsis {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: justify;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        .author-bio {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid var(--accent-teal);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            align-items: start;
+            font-size: 0.85em;
+        }
+
+        .author-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            border: 2px solid #eee;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info {
+            background: var(--accent-teal);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.8em;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 3px;
+            color: white;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .themes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .theme-tag {
+            background: var(--accent-teal);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .quote {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1em;
+            color: #2c2c2c;
+            text-align: center;
+            margin: 5px 0 8px 0;
+            padding: 8px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 4px;
+            border-left: 3px solid var(--accent-teal);
+            font-weight: bold;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--accent-teal);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .one-sheet {
+                box-shadow: none;
+                border-radius: 0;
+                border: 1px solid #ccc;
+            }
+            .header {
+                background: var(--accent-teal) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .pitch {
+                background: #f8f9fa !important;
+                border-left: 3px solid var(--accent-teal) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .detail-item {
+                background: #f8f9fa !important;
+                border-left: 2px solid var(--accent-teal) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .author-bio {
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+                border-left: 3px solid var(--accent-teal) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .contact-info {
+                background: var(--accent-teal) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .theme-tag {
+                background: var(--accent-teal) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .quote {
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+                border-left: 3px solid var(--accent-teal) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .highlight {
+                font-weight: bold !important;
+                color: var(--accent-teal) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="one-sheet">
+        <div class="header">
+            <img src="../author-photo.jpeg" alt="Saad Facchine" class="header-photo">
+            <div class="header-content">
+                <h1 class="title">THE MODEL MUSLIM</h1>
+                <p class="subtitle">A Novel</p>
+                <p class="author-name">by Saad Facchine</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="quote">
+                "If a system promises you a perfect life, what parts of you have to disappear to fit it?"
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">One Paragraph Pitch</h2>
+                <div class="pitch">
+                    In a Muslim-majority America, every believer carries the Awaz—a sleek algorithm whispering all the 'right' moves. For Kamaal, a celebrated writer-director, the Awaz has dictated his life, including concealing his true identity. When the Caliphate offers his newborn son the first infant Awaz, Kamaal faces a harrowing choice between his curated life and his family's autonomy.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="book-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Genre</div>
+                        <div>Upmarket Speculative Fiction</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Word Count</div>
+                        <div>75,000 words</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Status</div>
+                        <div>Complete manuscript</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Target Audience</div>
+                        <div>Book club fiction, LGBTQ+ readers</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Synopsis</h2>
+                <div class="synopsis">
+                    <p>Kamaal has had his Awaz longer than most. Recruited in high school as a test case for the New Caliphate's "opportunity to improve Muslim lives," he became a celebrated writer-director with a seemingly perfect life—a beautiful wife, a newborn son, and a glossy resume. But there's a cost. The Awaz has always told him to keep one truth offstage: <span class="highlight">he's gay</span>. The device engineered a lavender marriage and dressed it up as virtue.</p>
+                    
+                    <p>Now dissent is simmering—people are starting to notice the gap between obedience and joy—and the Caliphate needs a grand gesture to steady the faithful. They offer Kamaal an honor that's also a threat: <span class="highlight">let your newborn be the first infant fitted with an Awaz</span>. If Kamaal agrees, he hands his son's autonomy to a machine before the boy can even form a memory. But if he refuses, he risks collapsing the curated life the Awaz built for him.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Author Bio</h2>
+                <div class="author-bio">
+                    <p>Writing from my lived experience as a gay Muslim working in technology, I bring authenticity and depth to <em>The Model Muslim</em>. I live near Baltimore with my husband and two cats, and unlike Kamaal, I am very happily married. This novel explores the intersection of technology, faith, and identity through a queer lens, drawing from my personal journey navigating these complex spaces.</p>
+                </div>
+            </div>
+
+
+            <div class="contact-info">
+                <p><strong>Contact:</strong> saadfacchine@gmail.com | saadfacchine.com | Baltimore, MD | <em>Manuscript available upon request</em></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

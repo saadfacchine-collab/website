@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author One Sheet - The Model Muslim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,600;0,700;1,400&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: white;
+            padding: 20px;
+        }
+
+        .one-sheet {
+            max-width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            border: 4px solid #000;
+        }
+
+        .header {
+            background: white;
+            color: black;
+            padding: 15px 15px;
+            text-align: center;
+            position: relative;
+            border-bottom: 3px solid #000;
+        }
+
+        .title-wrapper {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 6px;
+            line-height: 1.2;
+        }
+
+        .title-main {
+            display: block;
+            font-size: 1em;
+            letter-spacing: 4px;
+        }
+
+        .subtitle {
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-top: 6px;
+            text-transform: uppercase;
+        }
+
+        .author-name {
+            font-size: 0.75em;
+            margin-top: 6px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            border-top: 2px solid black;
+            padding-top: 6px;
+            display: inline-block;
+        }
+
+        .content {
+            padding: 12px;
+        }
+
+        .quote-box {
+            border: 3px solid #000;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .quote {
+            font-family: 'Crimson Text', serif;
+            font-size: 1em;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .section {
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 3px;
+        }
+
+        .pitch-text {
+            font-size: 0.85em;
+            line-height: 1.5;
+            text-align: justify;
+            padding: 10px;
+            border-left: 4px solid #000;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+            border: 2px solid #000;
+            margin-bottom: 10px;
+        }
+
+        .detail-cell {
+            padding: 8px;
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        .detail-cell {
+            background: white;
+            color: black;
+        }
+
+        .detail-label {
+            font-weight: 700;
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .detail-value {
+            font-size: 0.8em;
+        }
+
+        .synopsis-text {
+            font-size: 0.82em;
+            line-height: 1.5;
+            text-align: justify;
+            padding: 10px;
+            border: 2px solid #000;
+        }
+
+        .synopsis-text p {
+            margin-bottom: 6px;
+        }
+
+        .synopsis-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .emphasis {
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-thickness: 1.5px;
+        }
+
+        .bio-box {
+            border: 2px solid #000;
+            padding: 10px;
+            background: white;
+        }
+
+        .bio-text {
+            font-size: 0.82em;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .contact-bar {
+            background: white;
+            color: black;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.75em;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+            border: 2px solid #000;
+        }
+
+        .pattern-bg {
+            position: relative;
+        }
+
+        .pattern-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(0,0,0,0.03) 10px,
+                    rgba(0,0,0,0.03) 20px
+                );
+            pointer-events: none;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .one-sheet {
+                border: 4px solid #000;
+            }
+            .header {
+                background: white !important;
+                color: black !important;
+                border-bottom: 4px solid #000 !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .detail-cell {
+                background: white !important;
+                color: black !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .contact-bar {
+                background: white !important;
+                color: black !important;
+                border: 2px solid #000 !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="one-sheet">
+        <div class="header">
+            <div class="title-wrapper">
+                <span class="title-main">
+                    THE MODEL MUSLIM
+                </span>
+            </div>
+            <p class="subtitle">SPECULATIVE FICTION</p>
+            <p class="author-name">SAAD FACCHINE</p>
+        </div>
+
+        <div class="content">
+            <div class="quote-box">
+                <p class="quote">"If a system promises you a perfect life, what parts of you have to disappear to fit it?"</p>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-cell">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value">Complete • 75,000 words</div>
+                </div>
+                <div class="detail-cell">
+                    <div class="detail-label">Audience</div>
+                    <div class="detail-value">Book Clubs • LGBTQ+</div>
+                </div>
+                <div class="detail-cell">
+                    <div class="detail-label">Comp Titles</div>
+                    <div class="detail-value">Severance • Klara and the Sun</div>
+                </div>
+                <div class="detail-cell">
+                    <div class="detail-label">Setting</div>
+                    <div class="detail-value">Muslim-Majority America</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">The Story</h2>
+                <div class="synopsis-text">
+                    <p>Allah forbid Kamaal make his own decisions. Every choice, down to the teaspoons of sugar in his Friday chai, had to be cleared by the voice inside his skull—the Awaz. The New Caliphate lodged it there years ago, a device feeding him shortcuts for life: how to stand, what to say, even which desires to bury.</p>
+                    
+                    <p>And sure, it delivered—buffed him into respectability: the polished career, the dutiful wife, the swaddled newborn. All in the Caliphate's America, where half the country marches to the same script.</p>
+                    
+                    <p>But this gift comes with a price. The Awaz buries his queer identity, forces him into a lavender marriage, and parades him as the perfect Muslim he can never truly be.</p>
+                    
+                    <p>The New Caliphate isn't done with him either. To crush rising dissent, they plan to fit an Awaz into every newborn—starting with Kamaal's child. Consent means surrendering his son's first breath of freedom. Refusal risks the same fate that swallowed his first love: a body alive but autonomy erased, trapped forever in autopilot.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Author</h2>
+                <div class="bio-box">
+                    <p class="bio-text">
+                        Saad Facchine is a gay Muslim working in AI and technology. He lives near Baltimore with his husband and two cats. This novel draws from his lived experience navigating the intersection of faith, identity, and technology.
+                    </p>
+                </div>
+            </div>
+
+            <div class="contact-bar">
+                <strong>CONTACT:</strong> saadfacchine@gmail.com • saadfacchine.com • Baltimore, MD • Manuscript Available
+            </div>
+        </div>
+    </div>
+</body>
+</html>
